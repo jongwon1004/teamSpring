@@ -1,0 +1,34 @@
+# teamSpring
+プロジェクトマネージャー: Choi jongwon
+副プロジェクトマネージャー: Iwata Kazuki
+
+担当
+フロントエンド: Iwata Kazuki,Fujita Noboru
+バックエンド:  Kataya Miyu,Choi jongwon
+フロントエンド＆バックエンド: Kumori Kenta
+ 
+Languages
+  Html
+  CSS
+  Java
+  JavaScript
+  Thymeleaf
+  
+DB & Frameworks & Server
+  Spring Framwork
+  Spring Boot
+  Apache tomcat
+  MySQL
+  Gradle
+  MyBatis
+  
+TEST
+  JUnit
+  
+Tools
+  git
+  gitHub
+  Notion
+  IntelliJ ultimate
+  POSTMAN
+  Visual Studio Code

@@ -1,6 +1,18 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/example?serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/teamSpring?characterEncoding=utf8
     username: root
-    password: 1234
+    password: JongWon1408!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  type-aliases-package: teamSpring.firstProject.domain
+#  application.properties 파일에 mybatis.type-aliases-package를 지정해두면
+#  Mapper XML 파일에 resultType 클래스의 패키지를 안적고 클래스명만 써도 되게 해준다.
+#  그런데, 프로젝트를 진행하면서 패키지가 여러개로 분할되니까 domain도 여러 패키지에 나눠져 있었는데,
+#  mybatis.type-aliases-package 에는 한 패키지만 설정되어 있어서 오류가 발생했기 때문에
+#  그냥 해당 속성을 지우고 패키지를 다 적어주고 있었다.
+#  근데 이게 너무 불편해서 찾아보니 여러 패키지를 설정할 수 있었는데 그냥 아래 코드처럼 패키지명 사이에 컴마(,)만 적어주면
+#  여러 패키지를 적어도 잘 작동한다.
+  mapper-locations: classpath:mybatis/mapper/**/*.xml
+  config-location: classpath:mybatis-config.xml

@@ -10,8 +10,13 @@
 
     <insert id="addUser" parameterType="User">
         INSERT INTO user_info (id, pwd, name)
-        VALUES (#{id},#{pwd},#{name})
+        VALUES (#{userId},#{userPwd},#{userName})
     </insert>
+
+    <select id="searchUser" parameterType="int" resultType="User">
+        SELECT * FROM user_info
+        WHERE id = #{userId}
+    </select>
 </mapper>
 
 <!--<property name="configLocation"  value="classpath:mybatis-config.xml"/> &lt;!&ndash; mybatis 설정파일 위치 &ndash;&gt;-->

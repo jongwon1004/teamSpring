@@ -29,6 +29,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void addUser(User user) {
-        sqlSession.insert(namespace+"addUser", user);
+        sqlSession.insert(namespace + "addUser", user);
+    }
+
+    @Override
+    public User searchUser(Integer userId) {
+        return sqlSession.selectOne(namespace + "searchUser",userId);
     }
 }

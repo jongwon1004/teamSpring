@@ -17,6 +17,7 @@ public class UserService {
         this.userDao = userDao;
     }
 
+
     // インタペースのメソッドの名前とMapperのidの名前と一緒じゃないとバグる
     public List<Map<String, Object>> users() throws Exception {
         return userDao.users();
@@ -25,4 +26,9 @@ public class UserService {
     public void addUser(User user) {
         userDao.addUser(user);
     }
+
+    public User searchUser(Integer userId) {
+        return userDao.searchUser(userId);
+    }
+
 }

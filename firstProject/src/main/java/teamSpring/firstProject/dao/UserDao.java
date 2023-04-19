@@ -10,4 +10,6 @@ public interface UserDao {
     List<Map<String, Object>> users();
 
     void addUser(User user);
+
+    User searchUser(Integer userId);
 }

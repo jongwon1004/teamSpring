@@ -2,9 +2,7 @@ package teamSpring.firstProject.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import teamSpring.firstProject.domain.User;
 import teamSpring.firstProject.service.UserService;
 
@@ -25,20 +23,30 @@ public class UserController {
     @ResponseBody
     @RequestMapping("/members")
     public List<Map<String, Object>> members(HttpServletRequest request) throws Exception {
-        log.info("URI={}",request.getRequestURL());
+        log.info("URI={}", request.getRequestURL());
         return userService.users();
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/addMember", method = RequestMethod.POST)
-    public String addMember(HttpServletRequest request) {
-        User user = new User();
-        user.setId(2222222);
-        user.setName("test1");
-        user.setPwd(19991004);
-        userService.addUser(user);
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login(HttpServletRequest request) {
         log.info("URI={}", request);
-        return "ok";
+        return "LoginForm";
     }
 
+    //ログインしてログインした人の情報を表示する
+    //@ResponseBody
+    @RequestMapping(value = "/loginInfo", method = RequestMethod.POST)
+    public String login(@ModelAttribute("user") User user, HttpServletRequest request) {
+        log.info("URI={}", request);
+        log.info("User={}", user);
+        return "LoginInfo";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/searchUser/{userId}", method = RequestMethod.GET)
+    public User searchUser(@PathVariable int userId) {
+        User user = userService.searchUser(userId);
+        log.info("searchUser={}", user);
+        return user;
+    }
 }

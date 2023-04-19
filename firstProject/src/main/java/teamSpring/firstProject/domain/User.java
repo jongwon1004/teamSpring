@@ -1,10 +1,11 @@
 package teamSpring.firstProject.domain;
 
 import lombok.Data;
+import lombok.ToString;
 
-@Data
+@Data @ToString
 public class User {
-    private int id;
-    private int pwd;
-    private String name;
+    private Integer userId;
+    private Integer userPwd;
+    private String userName;
 }

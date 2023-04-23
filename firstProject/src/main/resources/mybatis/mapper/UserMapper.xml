@@ -13,7 +13,12 @@
         VALUES (#{userId},#{userPwd},#{userName})
     </insert>
 
-    <select id="searchUser" parameterType="int" resultType="User">
+<!--    <select id="searchUser" parameterType="int" resultType="User">-->
+<!--        SELECT * FROM user_info-->
+<!--        WHERE id = #{userId}-->
+<!--    </select>-->
+
+    <select id="selectUser" parameterType="int" resultType="User">
         SELECT * FROM user_info
         WHERE id = #{userId}
     </select>

@@ -1,12 +1,19 @@
 package teamSpring.firstProject.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import teamSpring.firstProject.domain.User;
 import teamSpring.firstProject.service.UserService;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +23,7 @@ public class UserController {
 
     private final UserService userService;
 
+    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -28,26 +36,54 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(HttpServletRequest request) {
+    public String login(HttpServletRequest request, Model model) {
         log.info("URI={}", request);
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("rememberUserId")) {
+                    model.addAttribute("rememberUserId", Integer.parseInt(cookie.getValue()));
+                    log.info("rememberUserId={}",cookie.getValue());
+                    break;
+                }
+            }
+        }
+
+        model.addAttribute("user", new User());
         return "LoginForm";
     }
 
     //ログインしてログインした人の情報を表示する
-    //@ResponseBody
-    @RequestMapping(value = "/loginInfo", method = RequestMethod.POST)
-    public String login(@ModelAttribute("user") User user, HttpServletRequest request) {
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login(@ModelAttribute("user") User user, BindingResult bindingResult, @RequestParam(required = false)boolean rememberId, HttpServletRequest request , HttpServletResponse response, Model model) {
         log.info("URI={}", request);
-        log.info("User={}", user);
-        return "LoginInfo";
-    }
+        log.info("userId={}",user.getId());
+        log.info("userPwd={}",user.getPwd());
 
-    @ResponseBody
-    @RequestMapping(value = "/searchUser/{userId}", method = RequestMethod.GET)
-    public User searchUser(@PathVariable int userId) {
-        User user = userService.searchUser(userId);
-        log.info("searchUser={}", user);
-        return user;
+
+        User selectUser = userService.selectUser(user.getId());
+
+
+
+        log.info("selectUser={}", selectUser);
+        if(selectUser == null  || !(user.getId().equals(selectUser.getId()) && user.getPwd().equals(selectUser.getPwd()))) {
+            bindingResult.addError(new ObjectError("user","IDまたはPasswordが間違っています"));
+        }
+
+        if (bindingResult.hasErrors()) {
+            log.info("errors={}", bindingResult);
+            return "LoginForm";
+        }
+        HttpSession session = request.getSession();
+        session.setAttribute("id", user.getId());
+
+        if (rememberId) {
+            Cookie cookie = new Cookie("rememberUserId", user.getId().toString());
+            cookie.setMaxAge(60 * 60 * 24 * 1); // 쿠키 유효기간을 1일로 설정
+            response.addCookie(cookie);
+        }
+
+        return "LoginInfo";
     }
 }
 

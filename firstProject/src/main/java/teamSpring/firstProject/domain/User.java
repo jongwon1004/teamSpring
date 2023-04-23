@@ -5,7 +5,7 @@ import lombok.ToString;
 
 @Data @ToString
 public class User {
-    private Integer userId;
-    private Integer userPwd;
-    private String userName;
+    private Integer id;
+    private Integer pwd;
+    private String name;
 }

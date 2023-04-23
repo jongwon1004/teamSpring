@@ -27,8 +27,11 @@ public class UserService {
         userDao.addUser(user);
     }
 
-    public User searchUser(Integer userId) {
-        return userDao.searchUser(userId);
-    }
+//    public User searchUser(Integer userId) {
+//        return userDao.searchUser(userId);
+//    }
 
+    public User selectUser(Integer userId) {
+        return userDao.selectUser(userId);
+    }
 }

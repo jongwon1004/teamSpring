@@ -11,5 +11,7 @@ public interface UserDao {
 
     void addUser(User user);
 
-    User searchUser(Integer userId);
+//    User searchUser(Integer userId);
+
+    User selectUser(Integer userId);
 }

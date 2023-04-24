@@ -1,6 +1,7 @@
 package teamSpring.firstProject.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import teamSpring.firstProject.domain.Safety;
 import teamSpring.firstProject.domain.User;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface UserDao {
 //    User searchUser(Integer userId);
 
     User selectUser(Integer userId);
+
+    List<Safety> getSafetyTable();
 }

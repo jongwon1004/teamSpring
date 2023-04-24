@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.SqlSession;
 
 import org.springframework.stereotype.Repository;
+import teamSpring.firstProject.domain.Safety;
 import teamSpring.firstProject.domain.User;
 
 import java.util.List;
@@ -40,5 +41,10 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User selectUser(Integer userId) {
         return sqlSession.selectOne(namespace + "selectUser", userId);
+    }
+
+    @Override
+    public List<Safety> getSafetyTable() {
+        return sqlSession.selectList(namespace + "getSafetyTable");
     }
 }

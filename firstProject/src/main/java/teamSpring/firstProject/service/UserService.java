@@ -2,6 +2,7 @@ package teamSpring.firstProject.service;
 
 import org.springframework.stereotype.Service;
 import teamSpring.firstProject.dao.UserDao;
+import teamSpring.firstProject.domain.Safety;
 import teamSpring.firstProject.domain.User;
 
 import java.util.List;
@@ -27,11 +28,11 @@ public class UserService {
         userDao.addUser(user);
     }
 
-//    public User searchUser(Integer userId) {
-//        return userDao.searchUser(userId);
-//    }
-
     public User selectUser(Integer userId) {
         return userDao.selectUser(userId);
+    }
+
+    public List<Safety> getSafetyTable() {
+        return userDao.getSafetyTable();
     }
 }

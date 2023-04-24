@@ -5,24 +5,56 @@
 <!--<mapper namespace="teamSpring.firstProject.dao.UserDao">-->
 <mapper namespace="teamSpring.firstProject.dao.UserDao">
     <select id="users" resultType="Map">
-        select * from user_info
+        select * from employee
     </select>
 
     <insert id="addUser" parameterType="User">
         INSERT INTO user_info (id, pwd, name)
-        VALUES (#{userId},#{userPwd},#{userName})
+        VALUES (#{id},#{pwd},#{name})
     </insert>
-
-<!--    <select id="searchUser" parameterType="int" resultType="User">-->
-<!--        SELECT * FROM user_info-->
-<!--        WHERE id = #{userId}-->
-<!--    </select>-->
 
     <select id="selectUser" parameterType="int" resultType="User">
         SELECT * FROM user_info
         WHERE id = #{userId}
     </select>
+
+    <select id="getSafetyTable" resultMap="safetyResult">
+        SELECT d.d_name, e.e_name, s.safety
+        FROM employee AS e
+        JOIN department AS d ON ( e.d_id = d.d_id )
+        JOIN safety_report AS s ON( s.e_id = e.e_id);
+    </select>
+
+    <resultMap id="safetyResult" type="Safety">
+        <result column="d_name" property="authority"/>
+        <result column="e_name" property="employeeName"/>
+        <result column="safety" property="safety"/>
+    </resultMap>
+
+<!--    // 部署番号が1で安否登録した人を数えるsql-->
+<!--    // s.safety != 'x' を条件式に入れて安否登録をしたか、してないか判別-->
+<!--    // defaultは '-' やから　安否登録をして安全な場合は　'o' , 安否登録して危険な場合は 'x'-->
+<!--    SELECT COUNT(*)-->
+<!--    FROM safety_report AS s-->
+<!--    JOIN employee AS e ON ( s.e_id = e.e_id )-->
+<!--    JOIN department AS d ON ( e.d_id = d.d_id )-->
+<!--    WHERE s.safety != '-' AND e.d_id = 1-->
+
+<!--    // 部署番号が1で安否登録をしてない人を数えるsql-->
+<!--    SELECT COUNT(*)-->
+<!--    FROM safety_report AS s-->
+<!--    JOIN employee AS e ON ( s.e_id = e.e_id )-->
+<!--    JOIN department AS d ON ( e.d_id = d.d_id )-->
+<!--    WHERE s.safety = '-' AND e.d_id = 1-->
+
+<!--    // 部署番号が1である人を数えるsql-->
+<!--    SELECT COUNT(*) FROM employee WHERE d_id = 1;-->
+
 </mapper>
 
 <!--<property name="configLocation"  value="classpath:mybatis-config.xml"/> &lt;!&ndash; mybatis 설정파일 위치 &ndash;&gt;-->
 <!--<property name="mapperLocations" value="classpath:mapper/*Mapper.xml"/> &lt;!&ndash; SQL 담긴 파일 &ndash;&gt;-->
+        <!--    <select id="searchUser" parameterType="int" resultType="User">-->
+        <!--        SELECT * FROM user_info-->
+        <!--        WHERE id = #{userId}-->
+        <!--    </select>-->

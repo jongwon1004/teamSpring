@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import teamSpring.firstProject.domain.Safety;
 import teamSpring.firstProject.domain.User;
 import teamSpring.firstProject.service.UserService;
 
@@ -35,21 +36,33 @@ public class UserController {
         return userService.users();
     }
 
+    @RequestMapping(value = "/safetyTable", method = RequestMethod.GET)
+    public String safetyTable (Model model, HttpServletRequest request) {
+        log.info("URI={}", request);
+        List<Safety> safetyTable = userService.getSafetyTable();
+        model.addAttribute("safetyTable", safetyTable);
+        log.info("safetyTable={}", safetyTable);
+        return "safetyTable";
+    }
+
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(HttpServletRequest request, Model model) {
         log.info("URI={}", request);
         Cookie[] cookies = request.getCookies();
+        User user = new User();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("rememberUserId")) {
                     model.addAttribute("rememberUserId", Integer.parseInt(cookie.getValue()));
                     log.info("rememberUserId={}",cookie.getValue());
+                    user.setId(Integer.parseInt(cookie.getValue()));
                     break;
                 }
             }
         }
 
-        model.addAttribute("user", new User());
+        model.addAttribute("user", user);
         return "LoginForm";
     }
 
@@ -86,6 +99,18 @@ public class UserController {
         return "LoginInfo";
     }
 }
+
+/**
+ * // 쿠키 삭제
+ *     Cookie[] cookies = request.getCookies();
+ *     if (cookies != null) {
+ *         for (Cookie cookie : cookies) {
+ *             cookie.setMaxAge(0);
+ *             cookie.setPath("/");
+ *             response.addCookie(cookie);
+ *         }
+ *     }
+ */
 
 /**
  * @PostMapping("/login")

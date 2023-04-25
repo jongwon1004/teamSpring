@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Example</title>
+    <style>
+
+        * { box-sizing:border-box;}
+
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        form {
+            width:400px;
+            height:500px;
+            flex-direction: column;
+            align-items:center;
+            position : absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-50%, -50%) ;
+            border-radius: 13px;
+            border: 3px solid transparent;
+            background-image: linear-gradient(#fff, #fff),
+            linear-gradient(#65d3ffaa, blue);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+            margin: 10px auto;
+        }
+
+        .safetyForm {
+            width: 100%;
+        }
+
+        .inner {
+            margin: 0 auto;
+            width: 310px;
+        }
+
+        .safetyForm {
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .logoImg {
+            width: 150px;
+            margin-top: 75px;
+        }
+    </style>
+</head>
+<body>
+<div class="safetyForm">
+    <div class="inner">
+        <img src="/images/logo.png" alt="logo img" class="logoImg"/>
+    <form method="post" th:action="@{/submit}">
+        <h1>安否登録フォーム</h1>
+        <label>今のあなたの安全ですか？</label>
+        <input type="radio" id="safety" name="saOrDa" value="true" th:checked="${!saOrDa}" />
+        <label for="safety">安全だ</label>
+
+        <input type="radio" id="dangerous" name="saOrDa" value="false" th:checked="${saOrDa}" />
+        <label for="dangerous">危険だ</label>
+        <br><br>
+
+
+
+        <label>ケガしてますか？</label>
+        <input type="radio" id="injuredNo" name="injured" value="false" th:checked="${!injured}" />
+        <label for="injuredNo">してない</label>
+
+        <input type="radio" id="injuredYes" name="injured" value="true" th:checked="${injured}" />
+        <label for="injuredYes">してる</label>
+        <br><br>
+
+        <label>出勤可能ですか？</label>
+        <input type="radio" id="workingOK" name="working" value="true" th:checked="${!working}" />
+        <label for="workingOK">可能</label>
+        <input type="radio" id="workingNO" name="working" value="false" th:checked="${working}" />
+        <label for="workingNO">不可能</label>
+        <br><br>
+
+
+        <h3>伝いたいことがあれば書いてください</h3>
+        <textarea type="text" id="content" name="content" style="width: 250px; height: 150px; font-size: 17px" rows="5" cols="50"></textarea>
+        <br><br>
+        <button type="submit">登録する</button>
+    </form>
+    </div>
+</div>
+</body>
+</html>

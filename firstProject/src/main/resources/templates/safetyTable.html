@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Form</title>
+    <style>
+        body {
+            text-align: center;
+            font-size: 15px;
+        }
+
+        table {
+            border-collapse: collapse;
+            border: 2px solid rgb(39, 39, 39);
+        }
+
+        th {
+            width: 200px;
+            font-size: 20px;
+        }
+
+        tr {
+            height: 50px;
+        }
+
+
+    </style>
+</head>
+<body>
+<h1>安否表</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>所属</th>
+        <th>名前</th>
+        <th>安否</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="anpi : ${safetyTable}">
+        <td th:text="${anpi.authority}"></td> <!-- 所属 -->
+        <td th:text="${anpi.employeeName}"></td>  <!-- 名前 -->
+        <td th:text="${anpi.safety}"></td> <!-- 安否 -->
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

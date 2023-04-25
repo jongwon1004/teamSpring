@@ -35,4 +35,17 @@ public class UserService {
     public List<Safety> getSafetyTable() {
         return userDao.getSafetyTable();
     }
+
+    public List<Integer> getDepartmentIdList() {
+        return userDao.departmentIdList();
+    }
+
+    public List<Map<String, Object>> getSafetyCheckOK(List<Integer> departmentIdList) {
+//    public List<Map<String ,Object>> getSafetyCheckOK(List<Integer> departmentIdList) {
+        return userDao.safetyCheckOK(departmentIdList);
+    }
+
+    public List<Map<String, Object>> departmentAllEmployees(List<Integer> departmentIdList) {
+        return userDao.departmentAllEmployees(departmentIdList);
+    }
 }

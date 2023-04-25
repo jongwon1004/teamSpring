@@ -31,14 +31,48 @@
         <result column="safety" property="safety"/>
     </resultMap>
 
+    <select id="departmentIdList" resultType="int">
+        SELECT d_id FROM department
+    </select>
+
+
+
 <!--    // 部署番号が1で安否登録した人を数えるsql-->
 <!--    // s.safety != 'x' を条件式に入れて安否登録をしたか、してないか判別-->
 <!--    // defaultは '-' やから　安否登録をして安全な場合は　'o' , 安否登録して危険な場合は 'x'-->
-<!--    SELECT COUNT(*)-->
-<!--    FROM safety_report AS s-->
-<!--    JOIN employee AS e ON ( s.e_id = e.e_id )-->
-<!--    JOIN department AS d ON ( e.d_id = d.d_id )-->
-<!--    WHERE s.safety != '-' AND e.d_id = 1-->
+    <select id="safetyCheckOK" parameterType="java.util.List" resultMap="selectDepartmentCount">
+        SELECT d.d_name, COUNT(*) AS count
+        FROM safety_report AS s
+        JOIN employee AS e ON ( s.e_id = e.e_id )
+        JOIN department AS d ON ( e.d_id = d.d_id )
+        WHERE s.safety != '-'
+        AND e.d_id IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        GROUP BY d.d_name
+    </select>
+
+    <resultMap id="selectDepartmentCount" type="java.util.HashMap">
+        <result column="d_name" property="departmentName"/>
+        <result column="count" property="count"/>
+    </resultMap>
+
+
+    <select id="departmentAllEmployees" parameterType="java.util.List" resultMap="dpAllEmployees">
+        SELECT COUNT(*) AS count
+        FROM employee AS e
+        JOIN department AS d ON(e.d_id = d.d_id)
+        WHERE d.d_id IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        GROUP BY d.d_name
+    </select>
+
+    <resultMap id="dpAllEmployees" type="java.util.Map">
+        <result column="count" property="empCount"/>
+    </resultMap>
 
 <!--    // 部署番号が1で安否登録をしてない人を数えるsql-->
 <!--    SELECT COUNT(*)-->

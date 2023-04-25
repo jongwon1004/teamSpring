@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import teamSpring.firstProject.domain.Safety;
 import teamSpring.firstProject.domain.User;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,10 +34,6 @@ public class UserDaoImpl implements UserDao {
         sqlSession.insert(namespace + "addUser", user);
     }
 
-//    @Override
-//    public User searchUser(Integer userId) {
-//        return sqlSession.selectOne(namespace + "searchUser",userId);
-//    }
 
     @Override
     public User selectUser(Integer userId) {
@@ -46,5 +43,21 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<Safety> getSafetyTable() {
         return sqlSession.selectList(namespace + "getSafetyTable");
+    }
+
+    @Override
+    public List<Integer> departmentIdList() {
+        return sqlSession.selectList(namespace + "departmentIdList");
+    }
+
+    @Override
+//    public List<Map<String, Object>> SafetyCheckOK(List<Integer> departmentIdList) {
+    public List<Map<String, Object>> safetyCheckOK(List<Integer> departmentIdList) {
+        return sqlSession.selectList(namespace + "safetyCheckOK", departmentIdList);
+    }
+
+    @Override
+    public List<Map<String, Object>> departmentAllEmployees(List<Integer> departmentIdList) {
+        return sqlSession.selectList(namespace + "departmentAllEmployees", departmentIdList);
     }
 }

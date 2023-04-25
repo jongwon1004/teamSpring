@@ -12,9 +12,15 @@ public interface UserDao {
 
     void addUser(User user);
 
-//    User searchUser(Integer userId);
-
     User selectUser(Integer userId);
 
     List<Safety> getSafetyTable();
+
+    List<Integer> departmentIdList();
+
+//    List<Map<String, Object>> SafetyCheckOK(List<Integer> departmentIdList);
+    List<Map<String, Object>> safetyCheckOK(List<Integer> departmentIdList);
+
+    List<Map<String, Object>> departmentAllEmployees(List<Integer> departmentIdList);
 }
+

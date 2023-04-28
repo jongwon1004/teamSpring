@@ -8,38 +8,100 @@
         select * from employee
     </select>
 
-    <insert id="addUser" parameterType="User">
-        INSERT INTO user_info (id, pwd, name)
-        VALUES (#{id},#{pwd},#{name})
-    </insert>
+<!--    <insert id="addUser" parameterType="User">-->
+<!--        INSERT INTO user_info (id, pwd, name)-->
+<!--        VALUES (#{id},#{pwd},#{name})-->
+<!--    </insert>-->
 
-    <select id="selectUser" parameterType="int" resultType="User">
-        SELECT * FROM user_info
-        WHERE id = #{userId}
+    <select id="selectUser" parameterType="int" resultMap="userResultMap">
+        SELECT e_id, password, e_name FROM employee
+        WHERE e_id = #{employeeId}
     </select>
 
+    <resultMap id="userResultMap" type="User">
+        <result column="e_id" property="id"/>
+        <result column="password" property="pwd"/>
+        <result column="e_name" property="name"/>
+    </resultMap>
+
+<!--    SELECT d.d_name, e.e_name, s.safety     -->
+<!--    FROM employee AS e  -->
+<!--    JOIN department AS d ON ( e.d_id = d.d_id )     -->
+<!--    JOIN safety_report AS s ON( s.e_id = e.e_id)    -->
+<!--    WHERE 1 = 1      -->
+<!--    AND d.d_name LIKE CONCAT('%','', '%')       -->
+<!--    AND e.e_id LIKE CONCAT('%', 999, '%');      -->
+
+    <!--    MybatisではparameterTypeがMapの場合省略可能   -->
     <select id="getSafetyTable" resultMap="safetyResult">
-        SELECT d.d_name, e.e_name, s.safety
+        SELECT d.d_name, e.e_name, s.safety, s.date_of_report
         FROM employee AS e
         JOIN department AS d ON ( e.d_id = d.d_id )
-        JOIN safety_report AS s ON( s.e_id = e.e_id);
+        JOIN safety_report AS s ON( s.e_id = e.e_id )
+        <where>  <!-- WHERE 1 = 1 -->
+            <if test="searchType == '' or searchType == null" >
+                AND (d.d_name LIKE CONCAT('%', #{keyword}, '%')
+                OR e.e_name LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+            <if test="searchType == 'deptName'">
+                AND d.d_name LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="searchType == 'empName'">
+                AND e.e_name LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            AND s.date_of_report = (
+                SELECT MAX(date_of_report)
+                FROM safety_report
+                WHERE e_id = s.e_id
+            )
+            ORDER BY date_of_report DESC
+        </where>
     </select>
 
-    <resultMap id="safetyResult" type="Safety">
+    <resultMap id="safetyResult" type="Safety">  <!-- type="Safety"はdomainパッケージにSafetyクラスを見てみ -->
         <result column="d_name" property="authority"/>
         <result column="e_name" property="employeeName"/>
         <result column="safety" property="safety"/>
+        <result column="date_of_report" property="reportDate"/>
     </resultMap>
+
+
 
     <select id="departmentIdList" resultType="int">
         SELECT d_id FROM department
     </select>
 
+    <select id="departmentNameList" resultType="String">
+        SELECT d_name FROM department
+    </select>
+
+    <select id="reportTable" resultMap="reportTableMap">
+        SELECT d.d_name, e.e_name, s.safety, s.date_of_report
+        FROM safety_report AS s
+        JOIN employee AS e ON (s.e_id = e.e_id)
+        JOIN department AS d ON (d.d_id = e.d_id)
+        ORDER BY s.date_of_report DESC
+        LIMIT 5
+    </select>
+
+    <resultMap id="reportTableMap" type="java.util.Map">
+        <result column="e_name" property="name"/>
+        <result column="safety" property="safety"/>
+        <result column="date_of_report" property="reportDate"/>
+        <result column="d_name" property="dpName"/>
+    </resultMap>
 
 
-<!--    // 部署番号が1で安否登録した人を数えるsql-->
-<!--    // s.safety != 'x' を条件式に入れて安否登録をしたか、してないか判別-->
-<!--    // defaultは '-' やから　安否登録をして安全な場合は　'o' , 安否登録して危険な場合は 'x'-->
+
+<!--
+    このSQL文は各部署ごとの部署名と安否登録をした人の人数を返す。
+
+    parameterTypeをjava.util.ListでdepartmentIdList(部署テーブルのd_idリスト)を持ってくる
+    <foreach>の中で使うのはパラメーターとして持ってきたd_idリストを使う
+    collection: listは parameterTypeで持ってきたデータ型がListなのを定義する
+    index="index"は配列の０から始まる、index="count"は１から始まる
+    item="item"はparameterで持ってきたリストをAliasとして使う（ニックネーム）
+-->
     <select id="safetyCheckOK" parameterType="java.util.List" resultMap="selectDepartmentCount">
         SELECT d.d_name, COUNT(*) AS count
         FROM safety_report AS s
@@ -50,7 +112,13 @@
         <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
             #{item}
         </foreach>
+        AND s.date_of_report = (
+            SELECT MAX(date_of_report)
+            FROM safety_report
+            WHERE e_id = s.e_id
+        )
         GROUP BY d.d_name
+        ORDER BY d.d_name DESC
     </select>
 
     <resultMap id="selectDepartmentCount" type="java.util.HashMap">
@@ -59,6 +127,9 @@
     </resultMap>
 
 
+<!--
+        このSQL文は各部署ごとの総社員数を持ってくる
+-->
     <select id="departmentAllEmployees" parameterType="java.util.List" resultMap="dpAllEmployees">
         SELECT COUNT(*) AS count
         FROM employee AS e
@@ -68,21 +139,28 @@
             #{item}
         </foreach>
         GROUP BY d.d_name
+        ORDER BY d.d_name DESC
     </select>
 
     <resultMap id="dpAllEmployees" type="java.util.Map">
         <result column="count" property="empCount"/>
     </resultMap>
+    
+    <insert id="safetyRegistration" parameterType="SafetyFormData">
+        INSERT INTO safety_report (e_id, safety, injury_flag, work_flag, other_information)
+        VALUES (#{employeeId},#{saOrDa},#{injured},#{working},#{otherInfo});
+    </insert>
 
-<!--    // 部署番号が1で安否登録をしてない人を数えるsql-->
-<!--    SELECT COUNT(*)-->
-<!--    FROM safety_report AS s-->
-<!--    JOIN employee AS e ON ( s.e_id = e.e_id )-->
-<!--    JOIN department AS d ON ( e.d_id = d.d_id )-->
-<!--    WHERE s.safety = '-' AND e.d_id = 1-->
+<!--  部署番号が1で安否登録をしてない人を数えるsql
 
-<!--    // 部署番号が1である人を数えるsql-->
-<!--    SELECT COUNT(*) FROM employee WHERE d_id = 1;-->
+      SELECT COUNT(*)
+      FROM safety_report AS s
+      JOIN employee AS e ON ( s.e_id = e.e_id )
+      JOIN department AS d ON ( e.d_id = d.d_id )
+      WHERE s.safety = '-' AND e.d_id = 1
+
+-->
+
 
 </mapper>
 

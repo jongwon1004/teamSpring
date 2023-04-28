@@ -3,6 +3,7 @@ package teamSpring.firstProject.service;
 import org.springframework.stereotype.Service;
 import teamSpring.firstProject.dao.UserDao;
 import teamSpring.firstProject.domain.Safety;
+import teamSpring.firstProject.domain.SafetyFormData;
 import teamSpring.firstProject.domain.User;
 
 import java.util.List;
@@ -32,8 +33,8 @@ public class UserService {
         return userDao.selectUser(userId);
     }
 
-    public List<Safety> getSafetyTable() {
-        return userDao.getSafetyTable();
+    public List<Safety> getSafetyTable(Map<String, Object> search) {
+        return userDao.getSafetyTable(search);
     }
 
     public List<Integer> getDepartmentIdList() {
@@ -47,5 +48,17 @@ public class UserService {
 
     public List<Map<String, Object>> departmentAllEmployees(List<Integer> departmentIdList) {
         return userDao.departmentAllEmployees(departmentIdList);
+    }
+
+    public void getSafetyRegistration(SafetyFormData safetyFormData) {
+        userDao.safetyRegistration(safetyFormData);
+    }
+
+    public List<String> getDepartmentNameList() {
+        return userDao.departmentNameList();
+    }
+
+    public List<Map<String, Object>> getReportTable() {
+        return userDao.reportTable();
     }
 }

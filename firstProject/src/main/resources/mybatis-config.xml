@@ -3,8 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <typeAlias alias="User" type="teamSpring.firstProject.domain.User"/>
+        <typeAlias alias="safetyFormData" type="teamSpring.firstProject.domain.SafetyFormData"/>
         <typeAlias alias="Safety" type="teamSpring.firstProject.domain.Safety"/>
+        <typeAlias alias="User" type="teamSpring.firstProject.domain.User"/>
     </typeAliases>
     <mappers>
         <mapper resource="mybatis/mapper/UserMapper.xml"/>

@@ -3,11 +3,13 @@ package teamSpring.firstProject.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import teamSpring.firstProject.domain.Safety;
+import teamSpring.firstProject.domain.SafetyFormData;
 import teamSpring.firstProject.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +25,44 @@ public class SafetyController {
     public SafetyController(UserService userService) {
         this.userService = userService;
     }
+
+    @RequestMapping(value = "/safetyTable", method = RequestMethod.GET)
+    public String safetyTable (Model model, HttpServletRequest request,
+                               @RequestParam(defaultValue = "") String searchType, @RequestParam(defaultValue = "") String searchKeyword) {
+        log.info("URI={}", request);
+
+        List<Safety> safetyTable;
+        Map<String, Object> search = new HashMap<>();
+        search.put("searchType", searchType);
+        search.put("keyword", searchKeyword);
+
+        safetyTable = userService.getSafetyTable(search);
+
+//        if ("deptName".equals(searchType)) {  // searchTypeがdeptNameと同じ場合　// deptNameは safetyTable.htmlのformを確認
+//            // 部署名で検索
+//            safetyTable = userService.getSafetyTable(searchKeyword);
+//        } else {
+//            // 社員番号で検索
+//            safetyTable = userService.searchByEmpNo(searchKeyword);
+//        }
+
+        List<String> departmentNameList = userService.getDepartmentNameList();
+        model.addAttribute("departmentNameList",departmentNameList);
+        model.addAttribute("safetyTable", safetyTable);
+        log.info("safetyTable={}", safetyTable);
+
+//        List<Board> boardList;
+//        model.addAttribute("boardList", boardList);
+//        return "board/list";
+        return "safetyTable";
+    }
+
+    /**
+     * @GetMapping("/search")
+     * public String searchResult(@RequestParam String searchType, @RequestParam String searchKeyword, Model model){} {
+     *
+     * }
+     */
 
 //    @ResponseBody
     @RequestMapping(value = "/safetyTable2", method = RequestMethod.GET)
@@ -52,10 +92,28 @@ public class SafetyController {
     }
 
     @GetMapping("/safetyForm")
-    public String index(Model model) {
-        model.addAttribute("injured", false);
-        model.addAttribute("saOrDa", false);
-        model.addAttribute("working", false);
+    public String safetyForm(Model model, HttpServletRequest request, HttpSession session) {
+
+        /**
+         * テストで9999999をセッションを生成する
+         */
+//        HttpSession session = request.getSession();
+//        session.setAttribute("sessionId","9999999");  // adminアカウント
+//        String id = (String) session.getAttribute("sessionId");
+//        model.addAttribute("sessionId", id);
+
         return "safetyReportForm";
     }
+
+//    @ResponseBody
+    @PostMapping("/safetyForm")
+    public String formData(@ModelAttribute("safetyForm") SafetyFormData safetyFormData) {
+        log.info("safetyForm={}", safetyFormData);
+        userService.getSafetyRegistration(safetyFormData);
+
+
+        return "redirect:/safetyTable";
+    }
+
+
 }

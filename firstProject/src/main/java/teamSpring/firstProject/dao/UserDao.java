@@ -1,7 +1,7 @@
 package teamSpring.firstProject.dao;
 
-import org.apache.ibatis.annotations.Mapper;
 import teamSpring.firstProject.domain.Safety;
+import teamSpring.firstProject.domain.SafetyFormData;
 import teamSpring.firstProject.domain.User;
 
 import java.util.List;
@@ -12,15 +12,20 @@ public interface UserDao {
 
     void addUser(User user);
 
-    User selectUser(Integer userId);
+    User selectUser(Integer employeeId);
 
-    List<Safety> getSafetyTable();
+    List<Safety> getSafetyTable(Map<String, Object> search);
 
     List<Integer> departmentIdList();
 
-//    List<Map<String, Object>> SafetyCheckOK(List<Integer> departmentIdList);
     List<Map<String, Object>> safetyCheckOK(List<Integer> departmentIdList);
 
     List<Map<String, Object>> departmentAllEmployees(List<Integer> departmentIdList);
+
+    void safetyRegistration(SafetyFormData safetyFormData);
+
+    List<String> departmentNameList();
+
+    List<Map<String, Object>> reportTable();
 }
 

@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
-import teamSpring.firstProject.domain.Safety;
 import teamSpring.firstProject.domain.User;
 import teamSpring.firstProject.service.UserService;
 
@@ -36,15 +35,6 @@ public class UserController {
         return userService.users();
     }
 
-    @RequestMapping(value = "/safetyTable", method = RequestMethod.GET)
-    public String safetyTable (Model model, HttpServletRequest request) {
-        log.info("URI={}", request);
-        List<Safety> safetyTable = userService.getSafetyTable();
-        model.addAttribute("safetyTable", safetyTable);
-        log.info("safetyTable={}", safetyTable);
-        return "safetyTable";
-    }
-
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(HttpServletRequest request, Model model) {
@@ -55,7 +45,7 @@ public class UserController {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("rememberUserId")) {
                     model.addAttribute("rememberUserId", Integer.parseInt(cookie.getValue()));
-                    log.info("rememberUserId={}",cookie.getValue());
+                    log.info("rememberUserId={}", cookie.getValue());
                     user.setId(Integer.parseInt(cookie.getValue()));
                     break;
                 }
@@ -68,27 +58,22 @@ public class UserController {
 
     //ログインしてログインした人の情報を表示する
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@ModelAttribute("user") User user, BindingResult bindingResult, @RequestParam(required = false)boolean rememberId, HttpServletRequest request , HttpServletResponse response, Model model) {
+    public String login(@ModelAttribute("user") User user, BindingResult bindingResult, @RequestParam(required = false) boolean rememberId, HttpServletRequest request, HttpServletResponse response, Model model) {
         log.info("URI={}", request);
-        log.info("userId={}",user.getId());
-        log.info("userPwd={}",user.getPwd());
-
+        log.info("userId={}", user.getId());
+        log.info("userPwd={}", user.getPwd());
 
         User selectUser = userService.selectUser(user.getId());
-
-
-
         log.info("selectUser={}", selectUser);
-        if(selectUser == null  || !(user.getId().equals(selectUser.getId()) && user.getPwd().equals(selectUser.getPwd()))) {
-            bindingResult.addError(new ObjectError("user","IDまたはPasswordが間違っています"));
+
+        if (selectUser == null || !(user.getId().equals(selectUser.getId()) && user.getPwd().equals(selectUser.getPwd()))) {
+            bindingResult.addError(new ObjectError("user", "IDまたはPasswordが間違っています"));
         }
 
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
             return "LoginForm";
         }
-        HttpSession session = request.getSession();
-        session.setAttribute("id", user.getId());
 
         if (rememberId) {
             Cookie cookie = new Cookie("rememberUserId", user.getId().toString());
@@ -96,8 +81,14 @@ public class UserController {
             response.addCookie(cookie);
         }
 
-        return "LoginInfo";
+        HttpSession session = request.getSession();
+        session.setAttribute("sessionId", user.getId().toString());
+        String sessionId = (String) session.getAttribute("sessionId");
+        model.addAttribute("sessionId", sessionId);
+
+        return "safetyReportForm";
     }
+
 }
 
 /**

@@ -5,9 +5,9 @@ import org.apache.ibatis.session.SqlSession;
 
 import org.springframework.stereotype.Repository;
 import teamSpring.firstProject.domain.Safety;
+import teamSpring.firstProject.domain.SafetyFormData;
 import teamSpring.firstProject.domain.User;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,13 +36,13 @@ public class UserDaoImpl implements UserDao {
 
 
     @Override
-    public User selectUser(Integer userId) {
-        return sqlSession.selectOne(namespace + "selectUser", userId);
+    public User selectUser(Integer employeeId) {
+        return sqlSession.selectOne(namespace + "selectUser", employeeId);
     }
 
     @Override
-    public List<Safety> getSafetyTable() {
-        return sqlSession.selectList(namespace + "getSafetyTable");
+    public List<Safety> getSafetyTable(Map<String, Object> search) {
+        return sqlSession.selectList(namespace + "getSafetyTable", search);
     }
 
     @Override
@@ -59,5 +59,20 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<Map<String, Object>> departmentAllEmployees(List<Integer> departmentIdList) {
         return sqlSession.selectList(namespace + "departmentAllEmployees", departmentIdList);
+    }
+
+    @Override
+    public void safetyRegistration(SafetyFormData safetyFormData) {
+        sqlSession.insert(namespace + "safetyRegistration", safetyFormData);
+    }
+
+    @Override
+    public List<String> departmentNameList() {
+        return sqlSession.selectList(namespace + "departmentNameList");
+    }
+
+    @Override
+    public List<Map<String, Object>> reportTable() {
+        return sqlSession.selectList(namespace + "reportTable");
     }
 }

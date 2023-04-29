@@ -80,4 +80,9 @@ public class UserDaoImpl implements UserDao {
     public void registerDisaster(String disaster) {
         sqlSession.insert(namespace + "registerDisaster", disaster);
     }
+
+    @Override
+    public void userRegister(User user) {
+        sqlSession.insert(namespace + "userRegister", user);
+    }
 }

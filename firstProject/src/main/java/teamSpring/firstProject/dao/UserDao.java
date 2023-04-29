@@ -29,5 +29,7 @@ public interface UserDao {
     List<Map<String, Object>> reportTable();
 
     void registerDisaster(String disaster);
+
+    void userRegister(User user);
 }
 

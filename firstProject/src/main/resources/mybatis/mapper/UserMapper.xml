@@ -151,6 +151,13 @@
         VALUES (#{employeeId},#{saOrDa},#{injured},#{working},#{otherInfo});
     </insert>
 
+    <insert id="userRegister" parameterType="User">
+        INSERT INTO employee (e_id, e_name, password, Cellphone, d_id)
+        values (#{id},#{name},#{pwd},#{cellphone},#{departmentId});
+    </insert>
+
+
+
 <!--  部署番号が1で安否登録をしてない人を数えるsql
 
       SELECT COUNT(*)

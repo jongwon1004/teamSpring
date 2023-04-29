@@ -82,6 +82,9 @@ public class UserController {
             response.addCookie(cookie);
         }
 
+        /**
+         * Session
+         */
         HttpSession session = request.getSession();
         session.setAttribute("sessionId", user.getId().toString());
         String sessionId = (String) session.getAttribute("sessionId");
@@ -93,7 +96,7 @@ public class UserController {
         List<Map<String, Object>> reportTable = userService.getReportTable();
         model.addAttribute("reportTable", reportTable);
 
-        return "home";
+        return "redirect:/spring";
 
     }
 

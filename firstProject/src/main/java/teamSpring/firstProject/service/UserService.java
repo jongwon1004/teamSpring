@@ -65,4 +65,8 @@ public class UserService {
     public void registerDisaster(String disaster) {
         userDao.registerDisaster(disaster);
     }
+
+    public void userRegister(User user) {
+        userDao.userRegister(user);
+    }
 }

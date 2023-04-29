@@ -61,4 +61,8 @@ public class UserService {
     public List<Map<String, Object>> getReportTable() {
         return userDao.reportTable();
     }
+
+    public void registerDisaster(String disaster) {
+        userDao.registerDisaster(disaster);
+    }
 }

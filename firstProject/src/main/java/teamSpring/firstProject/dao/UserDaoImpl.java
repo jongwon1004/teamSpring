@@ -75,4 +75,9 @@ public class UserDaoImpl implements UserDao {
     public List<Map<String, Object>> reportTable() {
         return sqlSession.selectList(namespace + "reportTable");
     }
+
+    @Override
+    public void registerDisaster(String disaster) {
+        sqlSession.insert(namespace + "registerDisaster", disaster);
+    }
 }

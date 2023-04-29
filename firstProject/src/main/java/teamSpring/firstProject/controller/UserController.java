@@ -56,6 +56,7 @@ public class UserController {
         return "LoginForm";
     }
 
+    // localhost:8080/login
     //ログインしてログインした人の情報を表示する
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@ModelAttribute("user") User user, BindingResult bindingResult, @RequestParam(required = false) boolean rememberId, HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -86,7 +87,14 @@ public class UserController {
         String sessionId = (String) session.getAttribute("sessionId");
         model.addAttribute("sessionId", sessionId);
 
-        return "safetyReportForm";
+        /**
+         * メイン画面の〜さんが安否登録をしましたのテーブルを表示する時のデータ
+         */
+        List<Map<String, Object>> reportTable = userService.getReportTable();
+        model.addAttribute("reportTable", reportTable);
+
+        return "home";
+
     }
 
 }

@@ -27,5 +27,7 @@ public interface UserDao {
     List<String> departmentNameList();
 
     List<Map<String, Object>> reportTable();
+
+    void registerDisaster(String disaster);
 }
 

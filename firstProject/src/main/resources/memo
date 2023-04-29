@@ -1,0 +1,47 @@
+SELECT d.d_name, e.e_name, s.safety, s.other_information
+FROM employee AS e
+JOIN department AS d ON ( e.d_id = d.d_id )
+JOIN safety_report AS s ON( s.e_id = e.e_id)
+AND d.d_name LIKE CONCAT('%', '', '%')
+OR e.e_name LIKE CONCAT('%', '', '%')
+AND s.date_of_report = (
+    SELECT max(date_of_report)
+    FROM safety_report
+    WHERE e_id = s.e_id
+)
+
+
+SELECT d.d_name, e.e_name, s.safety, s.date_of_report
+FROM employee AS e
+JOIN department AS d ON ( e.d_id = d.d_id )
+JOIN safety_report AS s ON ( s.e_id = e.e_id )
+WHERE (d.d_name LIKE CONCAT('%', '', '%')
+    OR e.e_name LIKE CONCAT('%', '', '%'))
+    AND s.date_of_report = (
+        SELECT MAX(date_of_report)
+        FROM safety_report
+        WHERE e_id = s.e_id
+)
+
+
+SELECT d.d_name, COUNT(*) AS count
+FROM safety_report AS s
+JOIN employee AS e ON ( s.e_id = e.e_id )
+JOIN department AS d ON ( e.d_id = d.d_id )
+WHERE s.safety != '-'
+AND e.d_id IN(1,2,3,4,5)
+AND s.date_of_report = (
+        SELECT MAX(date_of_report)
+        FROM safety_report
+        WHERE e_id = s.e_id
+        )
+GROUP BY d.d_name
+ORDER BY d.d_name DESC;
+
+
+
+SELECT e.e_name, s.safety, s.date_of_report
+FROM safety_report AS s
+JOIN employee AS e ON (s.e_id = e.e_id)
+ORDER BY s.date_of_report DESC;
+

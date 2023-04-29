@@ -1,0 +1,29 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>registerForm</title>
+</head>
+<body>
+<div class="container">
+    <div class="mainContainer">
+        <form id="userRegisterForm">
+            <h2>ユーザー登録</h2>
+            <label for="user-id">ID</label>
+            <input type="text" id="user-id" name="userId"><br>
+            <label for="user-name">名前</label>
+            <input type="text" id="user-name" name="userName"><br>
+            <label for="password">パスワード</label>
+            <input type="password" id="password" name="password"><br>
+            <label for="phone">携帯番号</label>
+            <input type="tel" id="phone" name="phone"><br>
+            <label for="department-id">部署ID（数字）</label>
+            <input type="text" id="department-id" name="departmentId"><br>
+            <button type="submit">登録</button>
+        </form>
+    </div>
+</div>

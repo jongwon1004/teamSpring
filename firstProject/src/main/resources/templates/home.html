@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap"
+            rel="stylesheet"
+    />
+    <!-- 上は재난최근정보글꼴 -->
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+<!--    <link rel="stylesheet" th:href="@{/css/style.css}"/>-->
+</head>
+<body>
+<header>
+    <div class="inner">
+        <div class="box">
+            <div></div>
+            <div style="width: 300px"></div>
+            <div class="logo">LOGO</div>
+            <!-- <div class="header-button"><button>安否登録</button></div> -->
+            <div class="log-out">
+                <div th:if="${sessionId == '9999999'}"><a th:href="@{/userRegister}">
+                    유저등록
+                </a>
+                </div>
+                <div><button>今すぐ安否登録する！</button></div>
+                <div>logout</div>
+            </div>
+        </div>
+    </div>
+</header>
+<nav>
+    <marquee behavior="scroll" scrolldelay="200" height="30">지나가는 글 입니다</marquee>
+</nav>
+<section>
+    <div class="inner">
+        <div class="box">
+            <div class="left-box">
+                <div class="news-title">災難安全　状況情報</div>
+                <div class="news">
+                    <ul>
+                        <li>
+                            <p class="title">速報</p>
+                            <p class="text" style="color: red">
+                                2023/04/27 18:52:03
+                                原州市で行方不明になったキム·ホンリョルさん(男、94歳)を
+                                さがしています
+                            </p>
+                        </li>
+                        <li>
+                            <p class="title">速報</p>
+                            <p class="text">
+                                2023/04/27 18:52:03
+                                原州市で行方不明になったキム·ホンリョルさん(男、
+                            </p>
+                        </li>
+                        <li>
+                            <p class="title">速報</p>
+                            <p class="text">2023/04/27 18:52:03 原州市で行方</p>
+                        </li>
+                        <li>
+                            <p class="title">速報</p>
+                            <p class="text">
+                                2023/04/27 18:52:03
+                                原州市で行方不明になったキム·ホンリョルさん(男、94歳)
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="right-box">
+                <iframe
+                        width="500"
+                        height="300"
+                        src="https://www.youtube.com/embed/rGrKEjXvSQA"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen
+                ></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="section-middle">
+    <div class="inner">
+        <div class="box">
+            <div class="middle-left">
+                <div class="img-left">
+                    <img
+                            src="./images/telephone.png"
+                            alt=""
+                            style="width: 100px; height: 100px"
+                    />
+                    <p>
+                        部署別安否登録<br />
+                        リスト
+                    </p>
+                </div>
+                <span id="line"></span>
+                <div class="img-right">
+                    <img
+                            src="./images/telephone.png"
+                            alt=""
+                            style="width: 100px; height: 100px"
+                    />
+                    <p>
+                        部署別 <br />
+                        緊急連絡先
+                    </p>
+                </div>
+            </div>
+            <div class="middle-right">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>内容</th>
+                        <th>日時</th>
+                        <th>状況</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="table : ${reportTable}" >
+                        <td th:text="|${table.dpName}の${table.name} さんが安否登録をしました |"></td>
+                        <td th:text="${#temporals.format(table.reportDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
+                        <td th:text="${table.safety}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section-bottom">
+    <div class="inner">
+        <div class="box">
+            <div class="box-left">
+                <div class="text-box">
+                    <div class="text">
+                        災害発生時<br />安全行動要領 <br />前もって確認しましょう
+                    </div>
+                </div>
+            </div>
+            <div class="box-middle">
+                <div class="text-box">
+                    <div class="text">最寄りの避難場所を覚えておこう</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer></footer>
+</body>
+</html>

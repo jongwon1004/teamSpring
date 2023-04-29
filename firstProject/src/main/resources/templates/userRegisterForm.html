@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>userRegister</title>
+    <style>
+
+        * { box-sizing:border-box;}
+
+        body {
+            width: 100%;
+            height: 100%;
+        }
+
+        form {
+            width:400px;
+            height:460px;
+            flex-direction: column;
+            align-items:center;
+            position : absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-50%, -50%) ;
+            border-radius: 13px;
+            border: 3px solid transparent;
+            background-image: linear-gradient(#fff, #fff),
+            linear-gradient(#65d3ffaa, blue);
+            background-origin: border-box;
+            background-clip: content-box, border-box;
+            margin: 10px auto;
+        }
+
+        .userRegisterForm {
+            width: 100%;
+        }
+
+        .inner {
+            margin: 0 auto;
+            width: 310px;
+        }
+
+        .userRegisterForm {
+            text-align: center;
+            margin: 55px auto;
+        }
+
+        .logoImg {
+            width: 150px;
+            margin-top: 35px;
+        }
+
+        .userSection {
+            margin: 30px auto;
+            font-size: 20px;
+        }
+
+        input {
+            height: 25px;
+            width: 200px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="userRegisterForm">
+    <div class="inner">
+        <img src="/images/logo.png" alt="logo img" class="logoImg"/>
+        <form method="post" th:action="@{/userRegister}" onsubmit="return submitForm();">
+            <h1>ユーザー登録フォーム</h1>
+            <div class="userSection">
+                <label for="user-id">ID</label>
+                <input type="text" id="user-id" name="id"><br>
+            </div>
+
+            <div class="userSection">
+                <label for="user-name">名前</label>
+                <input type="text" id="user-name" name="name"><br>
+            </div>
+
+            <div class="userSection">
+                <label for="password">パスワード</label>
+                <input type="password" id="password" name="pwd"><br>
+            </div>
+
+            <div class="userSection">
+                <label for="phone">携帯番号</label>
+                <input type="tel" id="phone" name="cellphone"><br>
+            </div>
+
+            <div class="userSection">
+                <label for="department-id">部署ID（数字）</label>
+                <input type="text" id="department-id" name="departmentId"><br>
+            </div>
+
+            <button type="submit" style="width: 60px; height: 40px">登録</button>
+        </form>
+    </div>
+</div>
+<script>
+    function submitForm() {
+        alert("ユーザー登録を完了しました！");
+        return true;
+    }
+</script>
+</body>
+</html>
+</body>
+</html>

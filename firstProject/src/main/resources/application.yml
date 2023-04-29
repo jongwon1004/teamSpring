@@ -16,3 +16,6 @@ mybatis:
 #  여러 패키지를 적어도 잘 작동한다.
   mapper-locations: classpath:mybatis/mapper/**/*.xml
   config-location: classpath:mybatis-config.xml
+
+  spring.mvc.view.prefix: /templates/
+  spring.mvc.view.suffix: .html

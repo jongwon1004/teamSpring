@@ -69,4 +69,8 @@ public class UserService {
     public void userRegister(User user) {
         userDao.userRegister(user);
     }
+
+    public List<Map<String, Object>> getUserSafetyDetail(Integer empId) {
+        return userDao.userSafetyDetail(empId);
+    }
 }

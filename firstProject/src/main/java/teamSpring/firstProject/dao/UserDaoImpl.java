@@ -85,4 +85,9 @@ public class UserDaoImpl implements UserDao {
     public void userRegister(User user) {
         sqlSession.insert(namespace + "userRegister", user);
     }
+
+    @Override
+    public List<Map<String, Object>> userSafetyDetail(Integer empId) {
+        return sqlSession.selectList(namespace + "userSafetyDetail", empId);
+    }
 }

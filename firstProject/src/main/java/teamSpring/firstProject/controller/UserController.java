@@ -36,7 +36,7 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String login(HttpServletRequest request, Model model) {
         log.info("URI={}", request);
         Cookie[] cookies = request.getCookies();
@@ -53,12 +53,12 @@ public class UserController {
         }
 
         model.addAttribute("user", user);
-        return "LoginForm";
+        return "index";
     }
 
     // localhost:8080/login
     //ログインしてログインした人の情報を表示する
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public String login(@ModelAttribute("user") User user, BindingResult bindingResult, @RequestParam(required = false) boolean rememberId, HttpServletRequest request, HttpServletResponse response, Model model) {
         log.info("URI={}", request);
         log.info("userId={}", user.getId());
@@ -73,7 +73,7 @@ public class UserController {
 
         if (bindingResult.hasErrors()) {
             log.info("errors={}", bindingResult);
-            return "LoginForm";
+            return "index";
         }
 
         if (rememberId) {

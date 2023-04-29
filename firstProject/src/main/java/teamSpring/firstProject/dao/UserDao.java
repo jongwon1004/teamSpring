@@ -31,5 +31,7 @@ public interface UserDao {
     void registerDisaster(String disaster);
 
     void userRegister(User user);
+
+    List<Map<String, Object>> userSafetyDetail(Integer empId);
 }
 

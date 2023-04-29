@@ -51,9 +51,6 @@ public class SafetyController {
         model.addAttribute("safetyTable", safetyTable);
         log.info("safetyTable={}", safetyTable);
 
-//        List<Board> boardList;
-//        model.addAttribute("boardList", boardList);
-//        return "board/list";
         return "safetyTable";
     }
 
@@ -70,6 +67,9 @@ public class SafetyController {
         List<Integer> departmentIdList = userService.getDepartmentIdList();
         log.info("departmentIdList={}",departmentIdList);
 
+        /**
+         * safetyCheckOkは部署の名前と部署の総社員数のデータを持ってくる
+         */
         List<Map<String, Object>> safetyCheckOK = userService.getSafetyCheckOK(departmentIdList);
         List<Map<String, Object>> departmentAllEmployees = userService.departmentAllEmployees(departmentIdList);
 

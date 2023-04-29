@@ -21,6 +21,7 @@ public class Safety {
     private String employeeName;
     private String safety;  // "o", "x", "-"
     private LocalDateTime reportDate;
+    private Integer employeeId; // 안부표 상세정보 링크걸때 사용하기 위해서 추가
 }
 
 

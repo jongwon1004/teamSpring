@@ -34,7 +34,7 @@
 
     <!--    MybatisではparameterTypeがMapの場合省略可能   -->
     <select id="getSafetyTable" resultMap="safetyResult">
-        SELECT d.d_name, e.e_name, s.safety, s.date_of_report
+        SELECT d.d_name, e.e_name, s.safety, s.date_of_report, e.e_id
         FROM employee AS e
         JOIN department AS d ON ( e.d_id = d.d_id )
         JOIN safety_report AS s ON( s.e_id = e.e_id )
@@ -63,6 +63,7 @@
         <result column="e_name" property="employeeName"/>
         <result column="safety" property="safety"/>
         <result column="date_of_report" property="reportDate"/>
+        <result column="e_id" property="employeeId"/>
     </resultMap>
 
 
@@ -155,6 +156,24 @@
         INSERT INTO employee (e_id, e_name, password, Cellphone, d_id)
         values (#{id},#{name},#{pwd},#{cellphone},#{departmentId});
     </insert>
+    
+<!--    <select id="userSafetyDetail" parameterType="int" resultType="Map">-->
+<!--        SELECT * FROM safety_report-->
+<!--        WHERE e_id = #{empId}-->
+<!--        ORDER BY date_of_report DESC-->
+<!--        LIMIT 1;-->
+<!--    </select>-->
+
+    <select id="userSafetyDetail" parameterType="int" resultType="Map">
+        SELECT s.e_id, e.e_name, s.injury_flag, s.safety, s.work_flag, s.other_information,
+               s.date_of_report,d.d_name
+        FROM safety_report AS s
+        JOIN employee AS e on s.e_id = e.e_id
+        JOIN department AS d on d.d_id = e.d_id
+        WHERE e.e_id = #{empId}
+        ORDER BY date_of_report DESC
+        LIMIT 1;
+    </select>
 
 
 

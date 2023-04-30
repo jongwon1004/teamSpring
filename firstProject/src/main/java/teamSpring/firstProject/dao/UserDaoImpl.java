@@ -90,4 +90,9 @@ public class UserDaoImpl implements UserDao {
     public List<Map<String, Object>> userSafetyDetail(Integer empId) {
         return sqlSession.selectList(namespace + "userSafetyDetail", empId);
     }
+
+    @Override
+    public String sessionGetEmpName(int sessionId) {
+        return sqlSession.selectOne(namespace + "sessionGetEmpName", sessionId);
+    }
 }

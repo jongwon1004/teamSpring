@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!--<html lang="en">-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:border="http://www.w3.org/1999/xhtml"> <!-- Thymeleaf -->
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>teamSpring</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -13,30 +14,156 @@
     />
     <!-- 上は재난최근정보글꼴 -->
 
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
-<!--    <link rel="stylesheet" th:href="@{/css/style.css}"/>-->
+    <link
+            href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@800&display=swap"
+            rel="stylesheet"
+    />
+    <!-- 지금등록 글씨 -->
+    <link
+            href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap"
+            rel="stylesheet"
+    />
+    <!-- 로그아웃글씨 -->
+    <link
+            href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap"
+            rel="stylesheet"
+    />
+    <!--    <link rel="stylesheet" href="style.css" />-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"> <!-- Thymeleaf -->
 </head>
 <body>
+<div class="safety">
+    <form method="post" th:action="@{/safetyForm}">
+        <div class="safety-box">
+            <input
+                    type="hidden"
+                    name="employeeId"
+                    th:value="${sessionId}"
+            /><!-- hidden -->
+            <div class="safety-header">安否登録フォーム</div>
+            <div class="safety-middle">
+                <p><label>今のあなたの安全ですか？</label></p>
+                <div style="height: 40px; line-height: 40px;">
+                    <input type="radio" id="safety" name="saOrDa" value="o" th:checked="${true}"/>
+                    <label for="safety">安全だ</label>
+                    <input type="radio" id="dangerous" name="saOrDa" value="x" th:checked="${false}"/>
+                    <label for="dangerous">危険だ</label>
+                    <br/><br/>
+                </div>
+
+                <p><label>ケガしてますか？</label></p>
+                <div style="height: 40px; line-height: 40px;">
+                    <input type="radio" id="injuredNo" name="injured" value="false" th:checked="${true}"/>
+                    <label for="injuredNo">してない</label>
+                    <input type="radio" id="injuredYes" name="injured" value="true" th:checked="${false}"/>
+                    <label for="injuredYes">してる</label>
+                    <br/><br/>
+                </div>
+
+                <p><label>出勤可能ですか？</label></p>
+                <div style="height: 40px; line-height: 40px;">
+                    <input type="radio" id="workingOK" name="working" value="true" th:checked="${true}"/>
+                    <label for="workingOK">可能</label>
+                    <input type="radio" id="workingNO" name="working" value="false" th:checked="${false}"/>
+                    <label for="workingNO">不可能</label>
+                    <br/><br/>
+                </div>
+            </div>
+            <div class="safety-bottom">
+                <p>伝えたいことがあれば書いてください</p>
+                <textarea
+                        type="text"
+                        id="content"
+                        name="otherInfo"
+                        style="
+                        resize: none;
+                width: 410px;
+                height: 125px;
+                font-size: 17px;
+                border: 1px solid;
+              "
+                        rows="5"
+                        cols="50"
+                ></textarea>
+            </div>
+            <div class="safety-button">
+                <div class="safety-yes">
+                    <button type="submit" class="safety-yes-Btn">はい</button>
+                </div>
+                <div class="safety-no">
+                    <div class="safety-no-Btn">いいえ</div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-back"></div>
+<div class="modal-box">
+    <div class="modal">
+        <div class="modal-head">今、あなたは危険な状況ですか</div>
+        <div class="modal-text">すぐ安否登録を行いますか？</div>
+        <div>
+            <input type="checkbox" id="Checkbox" /> 一週間見えないようにする
+        </div>
+        <div class="modal-button">
+            <div class="Yes-btn"><button id="Yes-btn">はい</button></div>
+            <div class="line"></div>
+            <div class="No-btn"><button id="No-btn">いいえ</button></div>
+        </div>
+    </div>
+</div>
+<!--------------------- head --------------------------->
 <header>
     <div class="inner">
         <div class="box">
-            <div></div>
+            <div th:if="${empName == 'admin'}">
+                <button
+                    style="
+                        border-radius: 20px;
+                        background-color: whitesmoke;
+                    ">
+                    <a
+                        th:href="@{/userRegister}"
+                        style="
+                            text-decoration: none;
+                            color: #314178;
+                            font-size: 17px;
+                            font-weight: bold;
+                        "
+                        >ユーザー登録
+                    </a>
+                </button>
+            </div>
             <div style="width: 300px"></div>
-            <div class="logo">LOGO</div>
+            <div class="logo">Spring</div>
             <!-- <div class="header-button"><button>安否登録</button></div> -->
             <div class="log-out">
-                <div th:if="${sessionId == '9999999'}"><a th:href="@{/userRegister}">
-                    유저등록
-                </a>
+                <div>
+                    <button class="now-btn">
+                        今すぐ<span style="color: red">安否登録</span>
+                    </button>
                 </div>
-                <div><button>今すぐ安否登録する！</button></div>
-                <div>logout</div>
+<!--                <div class="logout-text">昇さん、ようこそ</div> &lt;!&ndash; 고쳐야될곳 &ndash;&gt;-->
+                <div class="logout-text"><span th:text="${empName}"/>さん<br>ようこそ</div>
+
+                <button class="logout-text logout-button">ログアウト</button>
+<!--                <div class="logout-text">-->
+<!--                    <button class="logout-button">ログアウト</button>-->
+<!--                </div>-->
             </div>
         </div>
     </div>
 </header>
-<nav>
-    <marquee behavior="scroll" scrolldelay="200" height="30">지나가는 글 입니다</marquee>
+
+<nav style="background-color: #314178">
+    <marquee
+            behavior="scroll"
+            scrolldelay="200"
+            height="30"
+            style="color: white; font-weight: bold; font-size: 14px"
+    >2023/04/27 18:52:03
+        原州市で行方不明になったキム·ホンリョルさん(男、94歳)を
+        さがしています</marquee>
 </nav>
 <section>
     <div class="inner">
@@ -58,17 +185,23 @@
                             <p class="text">
                                 2023/04/27 18:52:03
                                 原州市で行方不明になったキム·ホンリョルさん(男、
+                                不明になったキム·ホンリョルさん(男、94歳)
+                                不明になったキム·ホンリョルさん(男、94歳)
                             </p>
                         </li>
                         <li>
                             <p class="title">速報</p>
-                            <p class="text">2023/04/27 18:52:03 原州市で行方</p>
+                            <p class="text">
+                                2023/04/27 18:52:03
+                                原州市で行方不明になったキム·ホンリョルさん(男、94歳)不明になったキム·ホンリョルさん(男、94歳)
+                            </p>
                         </li>
                         <li>
                             <p class="title">速報</p>
                             <p class="text">
                                 2023/04/27 18:52:03
                                 原州市で行方不明になったキム·ホンリョルさん(男、94歳)
+                                不明になったキム·ホンリョルさん(男、94歳)
                             </p>
                         </li>
                     </ul>
@@ -76,9 +209,9 @@
             </div>
             <div class="right-box">
                 <iframe
-                        width="500"
-                        height="300"
-                        src="https://www.youtube.com/embed/rGrKEjXvSQA"
+                        width="480"
+                        height="281"
+                        src="https://www.youtube.com/embed/rfLC3rhTvwo"
                         title="YouTube video player"
                         frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -93,43 +226,54 @@
         <div class="box">
             <div class="middle-left">
                 <div class="img-left">
-                    <img
-                            src="./images/telephone.png"
-                            alt=""
-                            style="width: 100px; height: 100px"
-                    />
-                    <p>
-                        部署別安否登録<br />
-                        リスト
-                    </p>
+                    <a
+                            href="#" th:href="@{/safetyTable}"
+                            style="text-decoration: none; color: black; font-weight: bold"
+                    >
+                        <img
+                                src="./images/部署別安否登リスト.png"
+                                alt=""
+                                style="width: 100px; height: 100px"
+                        />
+                        <p>
+                            部署別安否登録 <br />
+                            リスト
+                        </p>
+                    </a>
                 </div>
                 <span id="line"></span>
                 <div class="img-right">
-                    <img
-                            src="./images/telephone.png"
-                            alt=""
-                            style="width: 100px; height: 100px"
-                    />
-                    <p>
-                        部署別 <br />
-                        緊急連絡先
-                    </p>
+                    <a
+                            href="#" th:href="@{/}"
+                            style="text-decoration: none; color: black; font-weight: bold"
+                    >
+                        <img
+                                src="./images/rightImage.png"
+                                alt=""
+                                style="width: 100px; height: 100px; border-radius: 50px"
+                        />
+                        <p>
+                            部署別 <br />
+                            緊急連絡先
+                        </p>
+                    </a>
                 </div>
             </div>
             <div class="middle-right">
                 <table>
                     <thead>
                     <tr>
-                        <th>内容</th>
-                        <th>日時</th>
-                        <th>状況</th>
+                        <th style="width: 510px">内容</th>
+                        <th style="width: 240px">日時</th>
+                        <th style="width: 120px">状況</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="table : ${reportTable}" >
                         <td th:text="|${table.dpName}の${table.name} さんが安否登録をしました |"></td>
-                        <td th:text="${#temporals.format(table.reportDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
-                        <td th:text="${table.safety}"></td>
+                        <td th:text="${#temporals.format(table.reportDate, 'yyyy/MM/dd HH:mm:ss')}" style="text-align: center; font-size: 20px"></td>
+                        <td th:if="${table.safety == 'o'}" style="text-align: center">安全</td>
+                        <td th:if="${table.safety == 'x'}" style="text-align: center">危険</td>
                     </tr>
                     </tbody>
                 </table>
@@ -143,7 +287,7 @@
             <div class="box-left">
                 <div class="text-box">
                     <div class="text">
-                        災害発生時<br />安全行動要領 <br />前もって確認しましょう
+                        <!-- 災害発生時<br />安全行動要領 <br />前もって確認しましょう -->
                     </div>
                 </div>
             </div>
@@ -155,6 +299,13 @@
         </div>
     </div>
 </div>
-<footer></footer>
+<footer>
+    <p>
+        このサイトはteamSpringによって作られ、みんなさんの安全対策及び、素早い安否登録を行えるため色んな情報を提供しています。
+        <br />
+    </p>
+    <em>© KURLY CORP. ALL RIGHTS RESERVED</em>
+</footer>
+<script src="./js/main.js"></script>
 </body>
 </html>

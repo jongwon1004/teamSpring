@@ -73,4 +73,8 @@ public class UserService {
     public List<Map<String, Object>> getUserSafetyDetail(Integer empId) {
         return userDao.userSafetyDetail(empId);
     }
+
+    public String sessionGetEmpName(int sessionId) {
+        return userDao.sessionGetEmpName(sessionId);
+    }
 }

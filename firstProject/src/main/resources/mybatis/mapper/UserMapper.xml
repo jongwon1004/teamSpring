@@ -13,6 +13,8 @@
 <!--        VALUES (#{id},#{pwd},#{name})-->
 <!--    </insert>-->
 
+    <!-- ログインする時検証のため -->
+
     <select id="selectUser" parameterType="int" resultMap="userResultMap">
         SELECT e_id, password, e_name FROM employee
         WHERE e_id = #{employeeId}
@@ -24,6 +26,12 @@
         <result column="e_name" property="name"/>
     </resultMap>
 
+    <!-- メイン画面の　〜さん、ようこそのところに名前を表示させるため -->
+    <select id="sessionGetEmpName" parameterType="int" resultType="String">
+        SELECT e_name FROM employee
+        WHERE e_id = #{sessionid}
+    </select>
+
 <!--    SELECT d.d_name, e.e_name, s.safety     -->
 <!--    FROM employee AS e  -->
 <!--    JOIN department AS d ON ( e.d_id = d.d_id )     -->
@@ -33,6 +41,9 @@
 <!--    AND e.e_id LIKE CONCAT('%', 999, '%');      -->
 
     <!--    MybatisではparameterTypeがMapの場合省略可能   -->
+
+    <!-- 安否表で検索フィルター -->
+
     <select id="getSafetyTable" resultMap="safetyResult">
         SELECT d.d_name, e.e_name, s.safety, s.date_of_report, e.e_id
         FROM employee AS e
@@ -66,15 +77,19 @@
         <result column="e_id" property="employeeId"/>
     </resultMap>
 
-
+    <!-- 全部署のid(数字)のリストを持ってくる -->
 
     <select id="departmentIdList" resultType="int">
         SELECT d_id FROM department
     </select>
 
+    <!-- 全部署の名前のリストを持ってくる -->
+
     <select id="departmentNameList" resultType="String">
         SELECT d_name FROM department
     </select>
+
+    <!-- メイン画面の〜さんが登録しましたのテーブルを表示 -->
 
     <select id="reportTable" resultMap="reportTableMap">
         SELECT d.d_name, e.e_name, s.safety, s.date_of_report
@@ -95,7 +110,7 @@
 
 
 <!--
-    このSQL文は各部署ごとの部署名と安否登録をした人の人数を返す。
+    各部署ごとの部署名と安否登録をした人の人数を返す。
 
     parameterTypeをjava.util.ListでdepartmentIdList(部署テーブルのd_idリスト)を持ってくる
     <foreach>の中で使うのはパラメーターとして持ってきたd_idリストを使う
@@ -128,9 +143,8 @@
     </resultMap>
 
 
-<!--
-        このSQL文は各部署ごとの総社員数を持ってくる
--->
+    <!--　各部署ごとの総社員数を持ってくる　-->
+
     <select id="departmentAllEmployees" parameterType="java.util.List" resultMap="dpAllEmployees">
         SELECT COUNT(*) AS count
         FROM employee AS e
@@ -146,12 +160,15 @@
     <resultMap id="dpAllEmployees" type="java.util.Map">
         <result column="count" property="empCount"/>
     </resultMap>
+
+    <!-- userRegisterForm.htmlのforデータを登録する -->
     
     <insert id="safetyRegistration" parameterType="SafetyFormData">
         INSERT INTO safety_report (e_id, safety, injury_flag, work_flag, other_information)
         VALUES (#{employeeId},#{saOrDa},#{injured},#{working},#{otherInfo});
     </insert>
 
+    <!-- 管理者が新しいユーザーを登録する -->
     <insert id="userRegister" parameterType="User">
         INSERT INTO employee (e_id, e_name, password, Cellphone, d_id)
         values (#{id},#{name},#{pwd},#{cellphone},#{departmentId});
@@ -164,6 +181,7 @@
 <!--        LIMIT 1;-->
 <!--    </select>-->
 
+    <!-- 安否表で該当するユーザーの詳細情報 -->
     <select id="userSafetyDetail" parameterType="int" resultType="Map">
         SELECT s.e_id, e.e_name, s.injury_flag, s.safety, s.work_flag, s.other_information,
                s.date_of_report,d.d_name

@@ -33,5 +33,7 @@ public interface UserDao {
     void userRegister(User user);
 
     List<Map<String, Object>> userSafetyDetail(Integer empId);
+
+    String sessionGetEmpName(int sessionId);
 }
 

@@ -112,7 +112,7 @@ public class SafetyController {
         userService.getSafetyRegistration(safetyFormData);
 
 
-        return "redirect:/safetyTable";
+        return "redirect:/spring";
     }
 
 

@@ -39,6 +39,8 @@ public class HomeController {
          * セッションから持ってきて管理者がユーザーを登録してからまた登録できるようにする
          */
         model.addAttribute("sessionId", sessionId);
+        String empName = userService.sessionGetEmpName(Integer.parseInt(sessionId));
+        model.addAttribute("empName", empName);
 
         return "home";
     }
@@ -49,7 +51,7 @@ public class HomeController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/registerDisaster", method = RequestMethod.POST)
+    @RequestMapping(value = "/disasterRegister", method = RequestMethod.POST)
     public String disasterRegister(@RequestParam String disaster) {
         log.info("disaster={}", disaster);
         userService.registerDisaster(disaster);

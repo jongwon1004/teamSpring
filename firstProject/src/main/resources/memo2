@@ -1,0 +1,56 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Login</title>
+    <style>
+        .global-error {
+            border-color: #dc3545;
+            color: #dc3545;
+            text-align: center;
+            font-weight: bold;
+            margin-top: -10px;
+        }
+    </style>
+</head>
+
+<body style="margin: 0; padding: 0; width: 100%;height: 100vh;">
+<div class="header" style="width: 100%;height: 200px;background-color: rgb(45,45,45);"></div>
+<div class="loginBox"
+     style="width: 300px;height: 380px;border: 1px solid; box-shadow: 2px 2px 2px 2px rgb(170, 170, 170); margin: 50px auto;">
+    <form action="/login" th:action="@{/}" th:object="${user}" method="post">
+        <!-- ログイン　ヘッダ -->
+        <div class="loginHeader" style="width:100%;height: 80px;">
+            <p style="text-align: center;padding-top: 25px; font-weight: bold;"><span style="font-size: 25px">ログイン</span></p>
+            <div th:if="${#fields.hasGlobalErrors()}">
+                <p class="global-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">グローバルエラーメッセージ</p>
+            </div>
+        </div>
+
+        <!-- ログイン　セッション -->
+        <div class="loginSection" style="width: 100%;height: 214px;display: flex;flex-wrap: wrap;justify-content: center;align-items: center;">
+            <input type="text" th:field="*{id}" style="width: 250px; height: 30px;" placeholder="ID" pattern="\d+"  oninvalid="this.setCustomValidity('数字のみ入力可能です')" oninput="this.setCustomValidity('')" required>
+            <input type="password" th:field="*{pwd}" style="width: 250px; height: 30px;" placeholder="PASSWORD">
+            <input type="submit" style="width: 255px; height: 30px;background-color: rgb(9, 66, 96);color: white;" value="ログイン">
+            <div style="width: 250px;display: flex; justify-content: center;align-items: center;margin-bottom: 20px;">
+                <input type="checkbox" name="rememberId" th:checked="${rememberUserId != null}"> <span style="font-size: 10px;">ID記憶</span>
+            </div>
+        </div>
+        <!-- ログイン　フッター -->
+        <div class="loginFooter"
+             style="width: 100%; height: 70px; font-size: 11px; background-color: rgb(245, 245, 245);display: flex; justify-content: space-around; align-items: center;">
+            <p style="border-right: 1px solid black; height: 20px;padding-right: 30px;">ID,PASSWORDを忘れた方</p>
+            <p style="margin-right: 30px;">新規登録</p>
+        </div>
+    </form>
+</div>
+
+<div class="footer" style="width: 100%;height: 400px;background-color: rgb(45,45,45);"></div>
+
+</body>
+
+</html>

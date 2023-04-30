@@ -100,6 +100,13 @@ public class UserController {
 
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        // セッション無効化
+        request.getSession().invalidate();
+        return "redirect:/";
+    }
+
 }
 
 /**

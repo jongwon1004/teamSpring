@@ -1,0 +1,389 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    /* background-color: aqua; */
+}
+.inner {
+    margin: 0 auto;
+    width: 1200px;
+    /* background-color: beige; */
+    /* background-color: azure; */
+}
+header {
+    border-bottom: 1px solid #c6d6e3;
+}
+header > .inner > .box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+}
+header > .inner > .box > .logo {
+    height: 100px;
+    font-size: 60px;
+    font-family: "BIZ UDPGothic", sans-serif;
+    font-family: "Tilt Neon", cursive;
+}
+header > .inner > .box > .log-out {
+    width: 400px;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header > .inner > .box > .log-out > div > button {
+    width: 170px;
+    height: 50px;
+    background-color: white;
+    font-size: 20px;
+    border: 3px solid #3c447d;
+    border-radius: 45px;
+    font-weight: bold;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+}
+header > .inner > .box > .log-out > .logout-text {
+    font-family: "Kosugi Maru", sans-serif;
+}
+/* -----------------------------------------header--------------------- */
+
+.title {
+    width: 100%;
+    height: 100px;
+    /* background-color: antiquewhite; */
+    display: flex;
+    justify-content: center;
+    /* background-color: aqua; */
+}
+.title > .title-inner {
+    width: 1200px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.title > .title-inner > p {
+    font-size: 60px;
+    font-family: "Kiwi Maru", serif;
+}
+section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: auto;
+    min-height: 100%;
+    padding-bottom: 80px;
+    /* background-color: rgb(182, 221, 255); */
+}
+section > .section-inner {
+    width: 1600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+section > .section-inner > .research-box > .research {
+    width: 1000px;
+    height: 100px;
+    /* border: 1px solid black; */
+    display: flex;
+    align-items: center;
+}
+/* section > .section-inner > .research-box > .research > div {
+  margin-right: 20px;
+} */
+section > .section-inner > .research-box > .research > .select-box {
+    width: 180px;
+}
+section > .section-inner > .research-box > .research > .select-box > select {
+    width: 150px;
+    height: 40px;
+    border-radius: 10px;
+}
+section > .section-inner > .research-box > .research > .input-box {
+    width: 260px;
+}
+section > .section-inner > .research-box > .research > .input-box > input {
+    width: 250px;
+    height: 36px;
+}
+section > .section-inner > .research-box > .research > .button-box {
+    width: 100px;
+}
+section > .section-inner > .research-box > .research > .button-box > button {
+    width: 60px;
+    height: 42px;
+}
+/*------------------------ table-box----------------------------- */
+
+section > .section-inner > .table-box {
+    width: 1600px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+section > .section-inner > .table-box > .left-table {
+    width: 300px;
+    height: 400px;
+    position: relative;
+    /* position: relative; */
+}
+section > .section-inner > .table-box > .left-table > table {
+    text-align: center;
+    width: 215px;
+    /* height: 100%; */
+    position: fixed;
+    top: 300px;
+    border-collapse: collapse;
+    box-shadow: 0px 1.7px 2.2px rgba(0, 0, 0, 0.02),
+    0px 4px 5.3px rgba(0, 0, 0, 0.028), 0px 7.5px 10px rgba(0, 0, 0, 0.035),
+    0px 13.4px 17.9px rgba(0, 0, 0, 0.042),
+    0px 25.1px 33.4px rgba(0, 0, 0, 0.05), 0px 60px 80px rgba(0, 0, 0, 0.07);
+    border-radius: 20px;
+}
+section
+> .section-inner
+> .table-box
+> .left-table
+> table
+> thead
+> tr
+> th:nth-child(1) {
+    border-top-left-radius: 15px;
+}
+section
+> .section-inner
+> .table-box
+> .left-table
+> table
+> thead
+> tr
+> th:nth-child(1) {
+    border-top-right-radius: 15px;
+}
+section
+> .section-inner
+> .table-box
+> .left-table
+> table
+> tbody
+> tr:nth-last-child(1)
+> td:last-child {
+    border-bottom-right-radius: 10px;
+}
+section
+> .section-inner
+> .table-box
+> .left-table
+> table
+> tbody
+> tr:nth-last-child(1)
+> td:first-child {
+    border-bottom-left-radius: 10px;
+}
+section > .section-inner > .table-box > .left-table > table > thead > tr > th {
+    border-bottom: 3px solid #3c447d;
+    background-color: #3c447d;
+    color: white;
+    font-size: 27px;
+    height: 55px;
+    font-weight: bold;
+}
+
+section > .section-inner > .table-box > .left-table > table > tbody > tr {
+    /* border-bottom: 1px solid rgb(172, 172, 172); */
+    height: 60px;
+    background-color: whitesmoke;
+    font-size: 23px;
+    font-weight: bold;
+}
+section > .section-inner > .table-box > .middle-table {
+    width: 1000px;
+}
+section > .section-inner > .table-box > .middle-table > table {
+    text-align: center;
+    width: 1000px;
+    border-collapse: collapse;
+    border-radius: 20px;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+section > .section-inner > .table-box > .middle-table > table > thead {
+    width: 1000px;
+    height: 75px;
+    /* background-color: aliceblue; */
+    border-radius: 10px;
+    font-weight: normal;
+}
+section
+> .section-inner
+> .table-box
+> .middle-table
+> table
+> thead
+> tr
+> th {
+    /* border-bottom: 5px solid #3c447d; */
+    font-size: 30px;
+    background-color: #2a4383;
+    color: white;
+}
+section
+> .section-inner
+> .table-box
+> .middle-table
+> table
+> thead
+> tr
+> th:nth-child(1) {
+    border-top-left-radius: 20px;
+}
+section
+> .section-inner
+> .table-box
+> .middle-table
+> table
+> thead
+> tr
+> th:nth-child(4) {
+    border-top-right-radius: 20px;
+    width: 337px;
+}
+section > .section-inner > .table-box > .middle-table > table > tbody > tr {
+    height: 40px;
+    font-size: 20px;
+    font-weight: bold;
+
+    /* background-color: aqua; */
+}
+section
+> .section-inner
+> .table-box
+> .middle-table
+> table
+> tbody
+> tr:nth-child(even) {
+    background-color: rgb(225, 225, 225);
+}
+section
+> .section-inner
+> .table-box
+> .middle-table
+> table
+> tbody
+> tr:nth-child(odd) {
+    background-color: white;
+}
+section
+> .section-inner
+> .table-box
+> .middle-table
+> table
+> tbody
+> tr:nth-last-child(1)
+> td:last-child {
+    border-bottom-right-radius: 20px;
+}
+section
+> .section-inner
+> .table-box
+> .middle-table
+> table
+> tbody
+> tr:nth-last-child(1)
+> td:first-child {
+    border-bottom-left-radius: 20px;
+}
+section > .section-inner > .table-box > .right-table {
+    width: 300px;
+    height: 400px;
+}
+
+section > .section-inner > .table-box > .right-table > table {
+    text-align: center;
+    width: 275px;
+    height: 400px;
+    margin-left: 25px;
+    border-collapse: collapse;
+    box-shadow: 0px 1.7px 2.2px rgba(0, 0, 0, 0.02),
+    0px 4px 5.3px rgba(0, 0, 0, 0.028), 0px 7.5px 10px rgba(0, 0, 0, 0.035),
+    0px 13.4px 17.9px rgba(0, 0, 0, 0.042),
+    0px 25.1px 33.4px rgba(0, 0, 0, 0.05), 0px 60px 80px rgba(0, 0, 0, 0.07);
+    border-radius: 20px;
+}
+section > .section-inner > .table-box > .right-table > table > thead {
+    height: 40px;
+    /* border-bottom: 1px solid black; */
+    background-color: #3c447d;
+    color: white;
+}
+section > .section-inner > .table-box > .right-table > table > tbody > tr {
+    /* border-bottom: 1px solid rgba(0, 0, 0, 0.2); */
+    height: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    /* background-color: #c6d6e3; */
+}
+section > .section-inner > .table-box > .right-table > table > tbody > tr > td {
+    background-color: whitesmoke;
+}
+section
+> .section-inner
+> .table-box
+> .right-table
+> table
+> thead
+> tr
+> th:nth-child(1) {
+    border-top-left-radius: 15px;
+}
+section
+> .section-inner
+> .table-box
+> .right-table
+> table
+> thead
+> tr
+> th:nth-child(4) {
+    border-top-right-radius: 15px;
+}
+section
+> .section-inner
+> .table-box
+> .right-table
+> table
+> tbody
+> tr:nth-last-child(1)
+> td:first-child {
+    border-bottom-left-radius: 10px;
+}
+section
+> .section-inner
+> .table-box
+> .right-table
+> table
+> tbody
+> tr:nth-last-child(1)
+> td:last-child {
+    border-bottom-right-radius: 10px;
+}
+section
+> .section-inner
+> .table-box
+> .right-table
+> table
+> thead
+> tr:nth-child(3) {
+    text-align: left;
+}
+footer {
+    width: 100%;
+    height: 80px;
+    padding: 20px 0 30px;
+    font-size: 10px;
+    line-height: 15px;
+    text-align: center;
+    background-color: #dadada;
+    /* color: #999; */
+    color: #6a6a6a;
+}

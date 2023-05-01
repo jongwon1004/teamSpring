@@ -117,30 +117,65 @@
     collection: listは parameterTypeで持ってきたデータ型がListなのを定義する
     index="index"は配列の０から始まる、index="count"は１から始まる
     item="item"はparameterで持ってきたリストをAliasとして使う（ニックネーム）
+
+    COALESCE関数は複数のパラメターを受けて、NULLじゃない最初のパラメターを返す、もし、全パラメターがNULLの場合はNULLを返す。
+    COALESCE(NULL, 1, 2) を実行すると 1を返し、
+    COALESCE(NULL, NULL, 3)を実行すると３を返す。
+
 -->
     <select id="safetyCheckOK" parameterType="java.util.List" resultMap="selectDepartmentCount">
-        SELECT d.d_name, COUNT(*) AS count
-        FROM safety_report AS s
-        JOIN employee AS e ON ( s.e_id = e.e_id )
-        JOIN department AS d ON ( e.d_id = d.d_id )
-        WHERE s.safety != '-'
-        AND e.d_id IN
-        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-        AND s.date_of_report = (
-            SELECT MAX(date_of_report)
-            FROM safety_report
-            WHERE e_id = s.e_id
+
+        SELECT d.d_name, COALESCE(COUNT(s.e_id), 0) AS count
+        FROM department AS d
+        LEFT JOIN employee AS e ON (
+            e.d_id = d.d_id AND e.d_id IN
+            <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+                #{item}
+            </foreach>
         )
+        LEFT JOIN (
+            SELECT s1.e_id
+            FROM safety_report AS s1
+            WHERE s1.date_of_report = (
+                SELECT MAX(s2.date_of_report)
+                FROM safety_report AS s2
+                WHERE s2.e_id = s1.e_id
+                ) AND s1.safety != '-'
+        ) AS s ON (s.e_id = e.e_id)
         GROUP BY d.d_name
-        ORDER BY d.d_name DESC
+        ORDER BY d.d_name DESC;
+
     </select>
 
     <resultMap id="selectDepartmentCount" type="java.util.HashMap">
         <result column="d_name" property="departmentName"/>
         <result column="count" property="count"/>
     </resultMap>
+
+<!--
+    SELECT d.d_name, COUNT(*) AS count
+    FROM safety_report AS s
+    JOIN employee AS e ON ( s.e_id = e.e_id )
+    JOIN department AS d ON ( e.d_id = d.d_id )
+    WHERE s.safety != '-'
+    AND e.d_id IN (1,2,3,4,5)
+    AND s.date_of_report = (
+    SELECT MAX(date_of_report)
+    FROM safety_report
+    WHERE e_id = s.e_id
+    )
+    GROUP BY d.d_name
+    ORDER BY d.d_name DESC
+
+    +ㅡㅡㅡㅡㅡㅡㅡㅡ+ㅡㅡㅡㅡㅡ+
+    | d_name    | count |
+    +ㅡㅡㅡㅡㅡㅡㅡㅡ+ㅡㅡㅡㅡㅡ+
+    | 総務部      |    23 |
+    | 広報部      |     1 |
+    | 人事部      |     1 |
+    +ㅡㅡㅡㅡㅡㅡㅡㅡ+ㅡㅡㅡㅡㅡ+
+
+-->
 
 
     <!--　各部署ごとの総社員数を持ってくる　-->
@@ -160,6 +195,25 @@
     <resultMap id="dpAllEmployees" type="java.util.Map">
         <result column="count" property="empCount"/>
     </resultMap>
+
+<!--
+    mysql> SELECT COUNT(*) AS count
+           FROM employee AS e
+           JOIN department AS d ON(e.d_id = d.d_id)
+           WHERE d.d_id IN (1,2,3,4,5)
+           GROUP BY d.d_name
+           ORDER BY d.d_name DESC;
+
+    +ㅡㅡㅡㅡㅡ+
+    | count |
+    +ㅡㅡㅡㅡㅡ+
+    |    37 |
+    |     3 |
+    |     1 |
+    |     2 |
+    |     2 |
+    +ㅡㅡㅡㅡㅡ+
+-->
 
     <!-- userRegisterForm.htmlのforデータを登録する -->
     

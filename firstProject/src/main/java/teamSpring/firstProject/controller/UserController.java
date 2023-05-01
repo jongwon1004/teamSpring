@@ -59,7 +59,9 @@ public class UserController {
     // localhost:8080/login
     //ログインしてログインした人の情報を表示する
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public String login(@ModelAttribute("user") User user, BindingResult bindingResult, @RequestParam(required = false) boolean rememberId, HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String login(@ModelAttribute("user") User user, BindingResult bindingResult,
+                        @RequestParam(required = false) boolean rememberId, HttpServletRequest request,
+                        HttpServletResponse response, Model model) {
         log.info("URI={}", request);
         log.info("userId={}", user.getId());
         log.info("userPwd={}", user.getPwd());

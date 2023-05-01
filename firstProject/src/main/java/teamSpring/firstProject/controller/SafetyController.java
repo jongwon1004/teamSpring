@@ -26,6 +26,11 @@ public class SafetyController {
         this.userService = userService;
     }
 
+    /**
+     * @param searchType
+     * @param searchKeyword
+     * @return safetyTable
+     */
     @RequestMapping(value = "/safetyTable", method = RequestMethod.GET)
     public String safetyTable (Model model, HttpServletRequest request,
                                @RequestParam(defaultValue = "") String searchType, @RequestParam(defaultValue = "") String searchKeyword) {
@@ -51,19 +56,6 @@ public class SafetyController {
         model.addAttribute("safetyTable", safetyTable);
         log.info("safetyTable={}", safetyTable);
 
-        return "safetyTable";
-    }
-
-    /**
-     * @GetMapping("/search")
-     * public String searchResult(@RequestParam String searchType, @RequestParam String searchKeyword, Model model){} {
-     *
-     * }
-     */
-
-//    @ResponseBody
-    @RequestMapping(value = "/safetyTable2", method = RequestMethod.GET)
-    public String safetyTable(Model model) {
         List<Integer> departmentIdList = userService.getDepartmentIdList();
         log.info("departmentIdList={}",departmentIdList);
 
@@ -88,6 +80,44 @@ public class SafetyController {
         }
 
         model.addAttribute("mergedList", mergedList);
+
+        return "safetyTable";
+    }
+
+    /**
+     * @GetMapping("/search")
+     * public String searchResult(@RequestParam String searchType, @RequestParam String searchKeyword, Model model){} {
+     *
+     * }
+     */
+
+//    @ResponseBody
+    @RequestMapping(value = "/safetyTable2", method = RequestMethod.GET)
+    public String safetyTable(Model model) {
+//        List<Integer> departmentIdList = userService.getDepartmentIdList();
+//        log.info("departmentIdList={}",departmentIdList);
+//
+//        /**
+//         * safetyCheckOkは部署の名前と部署の総社員数のデータを持ってくる
+//         */
+//        List<Map<String, Object>> safetyCheckOK = userService.getSafetyCheckOK(departmentIdList);
+//        List<Map<String, Object>> departmentAllEmployees = userService.departmentAllEmployees(departmentIdList);
+//
+//        log.info("safetyCheckOK={}", safetyCheckOK);
+//        log.info("departmentAllEmployees={}",departmentAllEmployees);
+//
+//        List<Map<String, Object>> mergedList = new ArrayList<>();
+//        for (int i = 0; i < safetyCheckOK.size(); i++) {
+//            Map<String, Object> safetyMap = safetyCheckOK.get(i);
+//            Map<String, Object> dpEmpsMap = departmentAllEmployees.get(i);
+//            Map<String, Object> mergedMap = new HashMap<>();
+//            mergedMap.put("departmentName", safetyMap.get("departmentName"));
+//            mergedMap.put("safetyCheckCount", safetyMap.get("count"));
+//            mergedMap.put("allEmpsCount", dpEmpsMap.get("empCount"));
+//            mergedList.add(mergedMap);
+//        }
+//
+//        model.addAttribute("mergedList", mergedList);
         return "safetyTable2";
     }
 

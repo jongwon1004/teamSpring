@@ -1,112 +1,187 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!--<html lang="ja">-->
+<html xmlns:th="http://www.thymeleaf.org"> <!-- Thymeleaf -->
 <head>
-    <meta charset="UTF-8">
-    <title>Login Form</title>
-    <style>
-        body {
-            text-align: center;
-            font-size: 15px;
-        }
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        table {
-            border-collapse: collapse;
-            border: 2px solid rgb(39, 39, 39);
-            margin: 0 auto;
-        }
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@800&display=swap"
+            rel="stylesheet"
+    />
+    <!-- 지금등록 글씨 -->
+    <link
+            href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap"
+            rel="stylesheet"
+    />
+    <!-- 로그아웃글씨 -->
+    <link
+            href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap"
+            rel="stylesheet"
+    />
 
-        th {
-            width: 200px;
-            font-size: 20px;
-        }
+    <!-------------- ↓↓↓↓안부표 글씨 ↓↓↓↓-------------->
 
-        tr {
-            height: 45px;
-        }
-
-        .container {
-            justify-content: space-around;
-            display: flex;
-        }
-
-        .sidebar {
-            margin-left: 20px; /* 사이드바와 테이블 사이의 간격 조절 */
-            position: absolute;
-            right: 80px;
-            top: 130px;
-        }
-
-        span {
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-
-    </style>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@500&display=swap"
+            rel="stylesheet"
+    />
+<!--    <link href="./safety-chart.css" rel="stylesheet" />-->
+    <link rel="stylesheet" th:href="@{/css/safety-chart.css}">
+    <title>安否表</title>
 </head>
+
 <body>
-<h1>安否表</h1>
-<div class="container">
-    <div class="leftContainer">
-        <table class="leftTable">
-            <thead>
-            <tr class="leftTr">
-                <th>部署リスト</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="dpName : ${departmentNameList}">
-                <td><a th:href="@{'/safetyTable?searchType=deptName&searchKeyword='+${dpName}}"><span th:text="${dpName}"></span></a></td>
-            </tr>
-            </tbody>
-        </table>
+<header>
+    <div class="inner">
+        <div class="box">
+            <div>
+                <!-- <button
+                  style="
+                    border: 1px solid #314178;
+                    border-radius: 20px;
+                    background-color: whitesmoke;
+                  "
+                >
+                  <a
+                    href="#"
+                    style="
+                      text-decoration: none;
+                      color: #314178;
+                      font-size: 17px;
+                      font-weight: bold;
+                    "
+                    >ユーザー登録
+                  </a>
+                </button> -->
+            </div>
+            <div style="width: 300px"></div>
+            <div class="logo">Spring</div>
+            <!-- <div class="header-button"><button>安否登録</button></div> -->
+            <div class="log-out">
+                <div>
+                    <button class="now-btn">
+                        今すぐ<span style="color: red">安否登録</span>
+                    </button>
+                </div>
+                <div class="logout-text">昇さん、ようこそ</div>
+                <div class="logout-text">ログアウト</div>
+            </div>
+        </div>
     </div>
-
-    <div class="mainContainer">
-    <div style="margin: 0 auto; padding-right: 70px;">
-        <form th:action="@{/safetyTable}" method="get">
-            <select name="searchType">
-                <option value="deptName">部署名</option>
-                <option value="empName">社員名</option>
-            </select>
-            <input type="text" name="searchKeyword" />
-            <button type="submit">検索</button>
-        </form>
-
-        <table class="mainTable">
-            <thead>
-            <tr class="mainTr">
-                <th class="mainTh">所属</th>
-                <th>名前</th>
-                <th>安否</th>
-                <th>登録時間</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="anpi : ${safetyTable}">
-                <td>
-                    <a th:href="@{/safetyTable/empId/{empId}(empId=${anpi.employeeId})}" th:text="${anpi.authority}">部署</a>
-                </td>
-                <td>
-                    <a th:href="@{/safetyTable/empId/{empId}(empId=${anpi.employeeId})}" th:text="${anpi.employeeName}">名前</a>
-                </td>
-                <td th:text="${anpi.safety}" style="font-size: 25px"></td> <!-- 安否 -->
-                <td th:text="${#temporals.format(anpi.reportDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
-
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="sidebar">
-        <span>安否のところに</span>
-        <h3>⭕️は安全な状態を表します</h3>
-        <h3>❌️は危険な状態を表します</h3>
-        <h3>➖はまだ安否登録をしてない<br>状態を 表します</h3>
-<!--        総務部	admin	o	2023/04/28 11:58:58-->
-    </div>
+</header>
+<!-- -----------------------------------ここまで header ----------------------- -->
+<div class="title">
+    <div class="title-inner">
+        <p>安否表</p>
     </div>
 </div>
+<section>
+    <div class="section-inner">
+        <div class="research-box">
+            <div class="research">
+                <div class="select-box">
+                    <select class="category" name="category">
+                        <option value="1" selected>名前</option>
+                        <option value="2">社員番号</option>
+                        <option value="2">生年月日</option>
+                        <option value="2">色んな</option>
+                    </select>
+                </div>
 
+                <div class="input-box">
+                    <input
+                            class="selected"
+                            type="text"
+                            name="name"
+                            placeholder="検索をする言葉を入力してください。"
+                    />
+                </div>
+                <div class="button-box">
+                    <button>検索</button>
+                </div>
+            </div>
+        </div>
+        <div class="table-box">
+            <div class="left-table">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>部署リスト</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="dpName : ${departmentNameList}">
+                        <td><a th:href="@{'/safetyTable?searchType=deptName&searchKeyword='+${dpName}}" style="text-decoration: none"><span th:text="${dpName}" style="color: black;}"></span></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="middle-table">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>所属</th>
+                        <th>名前</th>
+                        <th style="width: 180px">安否</th>
+                        <th>日時</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="anpi : ${safetyTable}">
+                        <td>
+                            <a th:href="@{/safetyTable/empId/{empId}(empId=${anpi.employeeId})}" th:text="${anpi.authority}" style="text-decoration: none; color: black">部署</a>
+                        </td>
+                        <td>
+                            <a th:href="@{/safetyTable/empId/{empId}(empId=${anpi.employeeId})}" th:text="${anpi.employeeName}" style="text-decoration: none; color: black">名前</a>
+                        </td>
+                        <td th:if="${anpi.safety} == 'o'" style="font-size: 25px">安全</td> <!-- 安否 -->
+                        <td th:if="${anpi.safety} == 'x'" style="font-size: 25px">危険</td> <!-- 安否 -->
+                        <td th:if="${anpi.safety} == '-'" style="font-size: 25px">ー</td>
+                        <td th:text="${#temporals.format(anpi.reportDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="right-table">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>部署名</th>
+                        <th>登録済</th>
+                        <th>総員人数</th>
+                        <th>総員済</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="merged : ${mergedList}">
+                        <td th:text="${merged.departmentName}"></td>
+                        <td th:text="${merged.safetyCheckCount}"></td>
+                        <td th:text="${merged.allEmpsCount}"></td>
+                        <td>
+                            <span th:if="${merged.safetyCheckCount == merged.allEmpsCount}">
+                                <img src="/images/AllCheckOK.png" alt="Checked" style="width: 33px"/>
+                            </span>
+                            <span th:unless="${merged.safetyCheckCount == merged.allEmpsCount}">
+                                <img src="/images/AllCheckNo.png" alt="Unchecked" style="width: 33px" />
+                            </span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<footer>
+    <p>
+        このサイトはteamSpringによって作られ、みんなさんの安全対策及び、素早い安否登録を行えるため色んな情報を提供しています。
+        <br />
+    </p>
+    <em>© KURLY CORP. ALL RIGHTS RESERVED</em>
+</footer>
 </body>
 </html>

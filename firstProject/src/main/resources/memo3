@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Form</title>
+    <style>
+        body {
+            text-align: center;
+            font-size: 15px;
+        }
+
+        table {
+            border-collapse: collapse;
+            border: 2px solid rgb(39, 39, 39);
+            margin: 0 auto;
+        }
+
+        th {
+            width: 200px;
+            font-size: 20px;
+        }
+
+        tr {
+            height: 45px;
+        }
+
+        .container {
+            justify-content: space-around;
+            display: flex;
+        }
+
+        .sidebar {
+            margin-left: 20px; /* 사이드바와 테이블 사이의 간격 조절 */
+            position: absolute;
+            right: 80px;
+            top: 130px;
+        }
+
+        span {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+
+    </style>
+</head>
+<body>
+<h1>安否表</h1>
+<div class="container">
+    <div class="leftContainer">
+        <table class="leftTable">
+            <thead>
+            <tr class="leftTr">
+                <th>部署リスト</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="dpName : ${departmentNameList}">
+                <td><a th:href="@{'/safetyTable?searchType=deptName&searchKeyword='+${dpName}}"><span th:text="${dpName}"></span></a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mainContainer">
+    <div style="margin: 0 auto; padding-right: 70px;">
+        <form th:action="@{/safetyTable}" method="get">
+            <select name="searchType">
+                <option value="deptName">部署名</option>
+                <option value="empName">社員名</option>
+            </select>
+            <input type="text" name="searchKeyword" />
+            <button type="submit">検索</button>
+        </form>
+
+        <table class="mainTable">
+            <thead>
+            <tr class="mainTr">
+                <th class="mainTh">所属</th>
+                <th>名前</th>
+                <th>安否</th>
+                <th>登録時間</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="anpi : ${safetyTable}">
+                <td>
+                    <a th:href="@{/safetyTable/empId/{empId}(empId=${anpi.employeeId})}" th:text="${anpi.authority}">部署</a>
+                </td>
+                <td>
+                    <a th:href="@{/safetyTable/empId/{empId}(empId=${anpi.employeeId})}" th:text="${anpi.employeeName}">名前</a>
+                </td>
+                <td th:text="${anpi.safety}" style="font-size: 25px"></td> <!-- 安否 -->
+                <td th:text="${#temporals.format(anpi.reportDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="sidebar">
+        <span>安否のところに</span>
+        <h3>⭕️は安全な状態を表します</h3>
+        <h3>❌️は危険な状態を表します</h3>
+        <h3>➖はまだ安否登録をしてない<br>状態を 表します</h3>
+<!--        総務部	admin	o	2023/04/28 11:58:58-->
+    </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+
+ SELECT COUNT(*) AS count
+        FROM employee AS e
+        JOIN department AS d ON(e.d_id = d.d_id)
+        WHERE d.d_id IN (1,2,3,4,5)
+        GROUP BY d.d_name
+        ORDER BY d.d_name DESC
+
+
+
+ SELECT d.d_name, COUNT(*) AS count
+        FROM safety_report AS s
+        JOIN employee AS e ON ( s.e_id = e.e_id )
+        JOIN department AS d ON ( e.d_id = d.d_id )
+        WHERE s.safety != '-'
+        AND e.d_id IN (1,2,3,4,5)
+        AND s.date_of_report = (
+            SELECT MAX(date_of_report)
+            FROM safety_report
+            WHERE e_id = s.e_id
+        )
+        GROUP BY d.d_name
+        ORDER BY d.d_name DESC

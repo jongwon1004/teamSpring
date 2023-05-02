@@ -83,26 +83,28 @@
     <div class="section-inner">
         <div class="research-box">
             <div class="research">
-                <div class="select-box">
-                    <select class="category" name="category">
-                        <option value="1" selected>名前</option>
-                        <option value="2">社員番号</option>
-                        <option value="2">生年月日</option>
-                        <option value="2">色んな</option>
-                    </select>
-                </div>
+<!--                <div class="select-box">-->
+<!--                    <select class="category" name="category">-->
+<!--                        <option value="1" selected>名前</option>-->
+<!--                        <option value="2">社員番号</option>-->
+<!--                        <option value="2">生年月日</option>-->
+<!--                        <option value="2">色んな</option>-->
+<!--                    </select>-->
+<!--                </div>-->
 
                 <div class="input-box">
-                    <input
-                            class="selected"
-                            type="text"
-                            name="name"
-                            placeholder="検索をする言葉を入力してください。"
-                    />
+                    <form th:action="@{/safetyTable}" method="get">
+                        <select name="searchType">
+                            <option value="deptName">部署名</option>
+                            <option value="empName">社員名</option>
+                        </select>
+                        <input type="text" name="searchKeyword" th:value="${searchKeyword}" />
+                        <button type="submit">検索</button>
+                    </form>
                 </div>
-                <div class="button-box">
-                    <button>検索</button>
-                </div>
+<!--                <div class="button-box">-->
+<!--                    <button>検索</button>-->
+<!--                </div>-->
             </div>
         </div>
         <div class="table-box">
@@ -140,8 +142,11 @@
                         </td>
                         <td th:if="${anpi.safety} == 'o'" style="font-size: 25px">安全</td> <!-- 安否 -->
                         <td th:if="${anpi.safety} == 'x'" style="font-size: 25px">危険</td> <!-- 安否 -->
-                        <td th:if="${anpi.safety} == '-'" style="font-size: 25px">ー</td>
-                        <td th:text="${#temporals.format(anpi.reportDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
+                        <td th:if="${anpi.safety} == null" style="font-size: 25px">ー</td>
+                        <td th:if="${anpi.reportDate} != null">
+                            <span th:text="${#temporals.format(anpi.reportDate, 'yyyy/MM/dd HH:mm:ss')}"></span>
+                        </td>
+                        <td th:if="${anpi.reportDate} == null">ー</td>
                     </tr>
                     </tbody>
                 </table>

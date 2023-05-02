@@ -48,8 +48,9 @@
         SELECT d.d_name, e.e_name, s.safety, s.date_of_report, e.e_id
         FROM employee AS e
         JOIN department AS d ON ( e.d_id = d.d_id )
-        JOIN safety_report AS s ON( s.e_id = e.e_id )
-        <where>  <!-- WHERE 1 = 1 -->
+        LEFT JOIN safety_report AS s ON( s.e_id = e.e_id )
+        <where>
+            <!-- WHERE 1 = 1 -->
             <if test="searchType == '' or searchType == null" >
                 AND (d.d_name LIKE CONCAT('%', #{keyword}, '%')
                 OR e.e_name LIKE CONCAT('%', #{keyword}, '%'))
@@ -60,14 +61,16 @@
             <if test="searchType == 'empName'">
                 AND e.e_name LIKE CONCAT('%', #{keyword}, '%')
             </if>
-            AND s.date_of_report = (
-                SELECT MAX(date_of_report)
-                FROM safety_report
-                WHERE e_id = s.e_id
-            )
+            AND (s.date_of_report IS NULL OR s.date_of_report = (
+                    SELECT MAX(date_of_report)
+                    FROM safety_report
+                    WHERE e_id = s.e_id
+                    )
+                )
             ORDER BY date_of_report DESC
         </where>
     </select>
+
 
     <resultMap id="safetyResult" type="Safety">  <!-- type="Safety"はdomainパッケージにSafetyクラスを見てみ -->
         <result column="d_name" property="authority"/>

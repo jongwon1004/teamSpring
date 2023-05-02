@@ -36,6 +36,9 @@ public class SafetyController {
                                @RequestParam(defaultValue = "") String searchType, @RequestParam(defaultValue = "") String searchKeyword) {
         log.info("URI={}", request);
 
+        model.addAttribute("searchType", searchType);
+        model.addAttribute("searchKeyword", searchKeyword);
+
         List<Safety> safetyTable;
         Map<String, Object> search = new HashMap<>();
         search.put("searchType", searchType);

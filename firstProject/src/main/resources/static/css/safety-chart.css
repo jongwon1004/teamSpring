@@ -101,7 +101,7 @@ section > .section-inner > .research-box > .research > .select-box > select {
     border-radius: 10px;
 }
 section > .section-inner > .research-box > .research > .input-box {
-    width: 260px;
+    /*width: 260px;*/
 }
 section > .section-inner > .research-box > .research > .input-box > input {
     width: 250px;

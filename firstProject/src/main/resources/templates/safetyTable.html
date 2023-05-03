@@ -76,7 +76,7 @@
 <!-- -----------------------------------ここまで header ----------------------- -->
 <div class="title">
     <div class="title-inner">
-        <p>安否表</p>
+        <a th:href="@{/safetyTable}" style="color: black; text-decoration: none"><p>安否表</p></a>
     </div>
 </div>
 <section>
@@ -95,11 +95,12 @@
                 <div class="input-box">
                     <form th:action="@{/safetyTable}" method="get">
                         <select name="searchType">
-                            <option value="deptName">社員番号</option>
-                            <option value="empName">社員名</option>
+                            <option value="empName" th:selected="${searchType == 'empName'}">社員名</option>
+                            <option value="empId" th:selected="${searchType == 'empId'}">社員番号</option>
                         </select>
                         <input type="text" name="searchKeyword" th:value="${searchKeyword}" />
                         <button type="submit">検索</button>
+                        <input type="hidden" name="deptName" th:value="${deptName}">
                     </form>
                 </div>
 <!--                <div class="button-box">-->
@@ -116,8 +117,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="dpName : ${departmentNameList}">
-                        <td><a th:href="@{'/safetyTable?searchType=deptName&searchKeyword='+${dpName}}" style="text-decoration: none"><span th:text="${dpName}" style="color: black;}"></span></a></td>
+                    <tr th:each="deptName : ${departmentNameList}">
+                        <td><a th:href="@{'/safetyTable?&deptName='+${deptName}}" style="text-decoration: none"><span th:text="${deptName}" style="color: black;}"></span></a></td>
                     </tr>
                     </tbody>
                 </table>
@@ -134,7 +135,7 @@
                     </thead>
                     <tbody>
                     <tr th:each="anpi : ${safetyTable}">
-                        <td>
+                        <td onclick="checkSafety(this)">
                             <a th:href="@{/safetyTable/empId/{empId}(empId=${anpi.employeeId})}" th:text="${anpi.authority}" style="text-decoration: none; color: black">部署</a>
                         </td>
                         <td>
@@ -142,7 +143,8 @@
                         </td>
                         <td th:if="${anpi.safety} == 'o'" style="font-size: 25px">安全</td> <!-- 安否 -->
                         <td th:if="${anpi.safety} == 'x'" style="font-size: 25px">危険</td> <!-- 安否 -->
-                        <td th:if="${anpi.safety} == null" style="font-size: 25px">ー</td>
+                        <td onClick="checkSafety(this)" th:if="${anpi.safety} == null" style="font-size: 25px">ー</td>
+<!--                        <td th:if="${anpi.safety} == null" style="font-size: 25px">ー</td>-->
                         <td th:if="${anpi.reportDate} != null">
                             <span th:text="${#temporals.format(anpi.reportDate, 'yyyy/MM/dd HH:mm:ss')}"></span>
                         </td>
@@ -188,5 +190,13 @@
     </p>
     <em>© KURLY CORP. ALL RIGHTS RESERVED</em>
 </footer>
+
+<!--    <script>-->
+<!--        function checkSafety(safety) {-->
+<!--            if (safety === null || safety === 'null') {-->
+<!--                alert('아직 안부 등록이 되어있지 않습니다.');-->
+<!--            }-->
+<!--        }-->
+<!--    </script>-->
 </body>
 </html>

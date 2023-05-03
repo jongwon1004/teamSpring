@@ -33,16 +33,20 @@ public class SafetyController {
      */
     @RequestMapping(value = "/safetyTable", method = RequestMethod.GET)
     public String safetyTable (Model model, HttpServletRequest request,
-                               @RequestParam(defaultValue = "") String searchType, @RequestParam(defaultValue = "") String searchKeyword) {
+                               @RequestParam(defaultValue = "") String searchType, @RequestParam(defaultValue = "") String searchKeyword,
+                               @RequestParam(defaultValue = "all") String deptName) {
         log.info("URI={}", request);
+        log.info("deptName={}", deptName);
 
         model.addAttribute("searchType", searchType);
         model.addAttribute("searchKeyword", searchKeyword);
+        model.addAttribute("deptName", deptName);
 
         List<Safety> safetyTable;
         Map<String, Object> search = new HashMap<>();
         search.put("searchType", searchType);
         search.put("keyword", searchKeyword);
+        search.put("deptName", deptName);
 
         safetyTable = userService.getSafetyTable(search);
 

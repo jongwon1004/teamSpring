@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import teamSpring.firstProject.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -23,14 +24,23 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/safetyTable/empId/{empId}")
-    public String employeeDetail(@PathVariable Integer empId, Model model) {
+    public String employeeDetail(@PathVariable Integer empId, Model model, HttpServletRequest request) {
         log.info("employeeID={}", empId);
-        List<Map<String, Object>> userSafetyDetail = userService.getUserSafetyDetail(empId);
-        log.info("userSafetyDetail={}", userSafetyDetail);
-        Object safety = userSafetyDetail.get(0).get("other_information");
-        log.info("other_Information={}", safety);
+        log.info("request={}", request.getRequestURI());
 
-        model.addAttribute("userSafetyDetail", userSafetyDetail);
+        List<Map<String, Object>> userSafetyDetail = null;
+
+        try {
+            userSafetyDetail = userService.getUserSafetyDetail(empId);
+            log.info("userSafetyDetail={}", userSafetyDetail);
+            Object safety = userSafetyDetail.get(0).get("other_information");
+            log.info("other_Information={}", safety);
+
+            model.addAttribute("userSafetyDetail", userSafetyDetail);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/safetyTable";
+        }
 
         return "userSafetyDetail";
     }

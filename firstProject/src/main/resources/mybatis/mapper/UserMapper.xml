@@ -51,16 +51,24 @@
         LEFT JOIN safety_report AS s ON( s.e_id = e.e_id )
         <where>
             <!-- WHERE 1 = 1 -->
-            <if test="searchType == '' or searchType == null" >
+
+            <if test="searchType == '' or searchType == null">
                 AND (d.d_name LIKE CONCAT('%', #{keyword}, '%')
-                OR e.e_name LIKE CONCAT('%', #{keyword}, '%'))
-            </if>
-            <if test="searchType == 'deptName'">
-                AND d.d_name LIKE CONCAT('%', #{keyword}, '%')
+                OR e.e_id LIKE CONCAT('%', #{keyword}, '%'))
             </if>
             <if test="searchType == 'empName'">
                 AND e.e_name LIKE CONCAT('%', #{keyword}, '%')
             </if>
+            <if test="searchType == 'empId'">
+                AND e.e_id LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="deptName == 'all'">
+                AND d.d_name IN (SELECT d_name FROM department)
+            </if>
+            <if test="deptName != 'all'">
+                AND d.d_name = #{deptName}
+            </if>
+
             AND (s.date_of_report IS NULL OR s.date_of_report = (
                     SELECT MAX(date_of_report)
                     FROM safety_report

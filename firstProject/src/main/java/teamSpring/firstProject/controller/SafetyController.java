@@ -1,6 +1,7 @@
 package teamSpring.firstProject.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +38,18 @@ public class SafetyController {
                                @RequestParam(defaultValue = "all") String deptName) {
         log.info("URI={}", request);
         log.info("deptName={}", deptName);
+
+        /**
+         * safetyTableのheaderのところの名前表示
+         */
+        HttpSession session = request.getSession();
+        String sessionId = (String) session.getAttribute("sessionId");
+        model.addAttribute("sessionId", sessionId);
+
+        String empName = userService.sessionGetEmpName(Integer.parseInt(sessionId));
+        model.addAttribute("empName", empName);
+        // ここまで
+
 
         model.addAttribute("searchType", searchType);
         model.addAttribute("searchKeyword", searchKeyword);
@@ -129,7 +142,7 @@ public class SafetyController {
     }
 
     @GetMapping("/safetyForm")
-    public String safetyForm(Model model, HttpServletRequest request, HttpSession session) {
+    public String safetyForm() {
 
         /**
          * テストで9999999をセッションを生成する
@@ -144,12 +157,13 @@ public class SafetyController {
 
 //    @ResponseBody
     @PostMapping("/safetyForm")
-    public String formData(@ModelAttribute("safetyForm") SafetyFormData safetyFormData) {
+    public String formData(@ModelAttribute("safetyForm") SafetyFormData safetyFormData, @RequestParam String requestURI) {
+        log.info("requestURL={}", requestURI);
         log.info("safetyForm={}", safetyFormData);
         userService.getSafetyRegistration(safetyFormData);
 
 
-        return "redirect:/spring";
+        return "redirect:"+ requestURI;
     }
 
 

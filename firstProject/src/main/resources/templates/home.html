@@ -8,6 +8,7 @@
     <title>teamSpring</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- logo 글씨체 -->
     <link
             href="https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap"
             rel="stylesheet"
@@ -31,9 +32,13 @@
     <!--    <link rel="stylesheet" href="style.css" />-->
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"> <!-- Thymeleaf -->
 </head>
+
 <body>
 <div class="safety">
     <form method="post" th:action="@{/safetyForm}">
+        <div hidden th:with="request=${#httpServletRequest}">
+            <input type="hidden" name="requestURI" th:value="${request.getRequestURI()}"></input>
+        </div>
         <div class="safety-box">
             <input
                     type="hidden"
@@ -134,8 +139,7 @@
                     </a>
                 </button>
             </div>
-            <div style="width: 300px"></div>
-            <div class="logo">Spring</div>
+            <div class="logo"><a th:href="@{/spring}" style="text-decoration: none; color: black">Spring</a></div>
             <!-- <div class="header-button"><button>安否登録</button></div> -->
             <div class="log-out">
                 <div>
@@ -143,13 +147,9 @@
                         今すぐ<span style="color: red">安否登録</span>
                     </button>
                 </div>
-<!--                <div class="logout-text">昇さん、ようこそ</div> &lt;!&ndash; 고쳐야될곳 &ndash;&gt;-->
-                <div class="logout-text"><span th:text="${empName}"/>さん<br>ようこそ</div>
+                <div class="hello-User"><span th:text="${empName}"/>さん<br>ようこそ</div>
 
                 <button class="logout-text logout-button">ログアウト</button>
-<!--                <div class="logout-text">-->
-<!--                    <button class="logout-button">ログアウト</button>-->
-<!--                </div>-->
             </div>
         </div>
     </div>

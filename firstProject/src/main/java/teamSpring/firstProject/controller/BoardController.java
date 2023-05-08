@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import teamSpring.firstProject.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +25,7 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/safetyTable/empId/{empId}")
-    public String employeeDetail(@PathVariable Integer empId, Model model, HttpServletRequest request) {
+    public String employeeDetail(@PathVariable Integer empId, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         log.info("employeeID={}", empId);
         log.info("request={}", request.getRequestURI());
 
@@ -39,6 +40,7 @@ public class BoardController {
             model.addAttribute("userSafetyDetail", userSafetyDetail);
         }catch (Exception e) {
             e.printStackTrace();
+            redirectAttributes.addFlashAttribute("message","NOT_USERINFORMATION");
             return "redirect:/safetyTable";
         }
 

@@ -35,9 +35,10 @@ public class SafetyController {
     @RequestMapping(value = "/safetyTable", method = RequestMethod.GET)
     public String safetyTable (Model model, HttpServletRequest request,
                                @RequestParam(defaultValue = "") String searchType, @RequestParam(defaultValue = "") String searchKeyword,
-                               @RequestParam(defaultValue = "all") String deptName) {
+                               @RequestParam(defaultValue = "all") String deptName, @ModelAttribute("message") String message) {
         log.info("URI={}", request);
         log.info("deptName={}", deptName);
+        log.info("message={}", message);
 
         /**
          * safetyTableのheaderのところの名前表示

@@ -115,6 +115,7 @@ section > .inner > .box > .left-box > .news > ul {
     padding: 0;
 }
 section > .inner > .box > .left-box > .news > ul > li {
+    line-height: 17px;
     display: flex;
     align-items: center;
     width: 650px;
@@ -130,10 +131,10 @@ section > .inner > .box > .left-box > .news > ul > li > .title {
     border-radius: 20px;
     text-align: center;
     width: 100px;
-    height: 30px;
+    height: 37px;
     letter-spacing: -1px;
     font-size: 20px;
-    line-height: 30px;
+    line-height: 37px;
 }
 section > .inner > .box > .left-box > .news > ul > li > p {
     margin: 0;

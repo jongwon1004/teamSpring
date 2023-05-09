@@ -5,6 +5,7 @@ import org.apache.coyote.Response;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import teamSpring.firstProject.domain.Safety;
 import teamSpring.firstProject.domain.SafetyFormData;
 import teamSpring.firstProject.service.UserService;
@@ -142,18 +143,29 @@ public class SafetyController {
         return "safetyTable2";
     }
 
-    @GetMapping("/safetyForm")
-    public String safetyForm() {
-
-        /**
-         * テストで9999999をセッションを生成する
-         */
+//    @GetMapping("/safetyForm")
+//    public String safetyForm() {
+//
+//        /**
+//         * テストで9999999をセッションを生成する
+//         */
 //        HttpSession session = request.getSession();
 //        session.setAttribute("sessionId","9999999");  // adminアカウント
 //        String id = (String) session.getAttribute("sessionId");
 //        model.addAttribute("sessionId", id);
+//
+//        return "safetyReportForm";
+//    }
 
-        return "safetyReportForm";
+    /**
+     * SafetyControllerの全体のメソッドからdisasterIdをViewに渡す
+     * @return
+     */
+    @ModelAttribute("disasterId")
+    public Integer disasterId() {
+        Map<String, Object> latestDisaster = userService.getLatestDisaster();
+        Integer disasterId = (Integer) latestDisaster.get("disasterId");
+        return disasterId;
     }
 
 //    @ResponseBody

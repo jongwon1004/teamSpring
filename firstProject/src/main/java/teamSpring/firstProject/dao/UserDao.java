@@ -4,6 +4,7 @@ import teamSpring.firstProject.domain.Safety;
 import teamSpring.firstProject.domain.SafetyFormData;
 import teamSpring.firstProject.domain.User;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,5 +36,11 @@ public interface UserDao {
     List<Map<String, Object>> userSafetyDetail(Integer empId);
 
     String sessionGetEmpName(int sessionId);
+
+    Map<String, Object> latestDisaster();
+
+    List<Map<String, Object>> mainLatestDisaster();
+
+    void empDiIdUpdate(Integer disasterId);
 }
 

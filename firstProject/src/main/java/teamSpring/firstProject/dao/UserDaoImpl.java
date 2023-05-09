@@ -8,6 +8,7 @@ import teamSpring.firstProject.domain.Safety;
 import teamSpring.firstProject.domain.SafetyFormData;
 import teamSpring.firstProject.domain.User;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -94,5 +95,20 @@ public class UserDaoImpl implements UserDao {
     @Override
     public String sessionGetEmpName(int sessionId) {
         return sqlSession.selectOne(namespace + "sessionGetEmpName", sessionId);
+    }
+
+    @Override
+    public Map<String, Object> latestDisaster() {
+        return sqlSession.selectOne(namespace + "latestDisaster");
+    }
+
+    @Override
+    public List<Map<String, Object>> mainLatestDisaster() {
+        return sqlSession.selectList(namespace + "mainLatestDisaster");
+    }
+
+    @Override
+    public void empDiIdUpdate(Integer disasterId) {
+        sqlSession.update(namespace + "empDiIdUpdate", disasterId);
     }
 }

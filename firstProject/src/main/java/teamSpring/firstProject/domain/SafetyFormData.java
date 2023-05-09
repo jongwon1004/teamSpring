@@ -18,18 +18,20 @@ public class SafetyFormData {
     private boolean working; // work_flag
     private String otherInfo; // other_information
     private Date reportDate; // date_of_report      // Now()
+    private Integer disasterId; // di_id
 }
 
-/**
- * +-------------------+------------+------+-----+-------------------+-------------------+
- * | Field             | Type       | Null | Key | Default           | Extra             |
- * +-------------------+------------+------+-----+-------------------+-------------------+
- * | s_id              | int        | NO   | PRI | NULL              | auto_increment    |
- * | e_id              | int        | NO   | MUL | NULL              |                   |
- * | safety            | varchar(1) | NO   |     | -                 |                   |
- * | injury_flag       | tinyint(1) | NO   |     | 0                 |                   |
- * | work_flag         | tinyint(1) | NO   |     | 1                 |                   |
- * | other_information | text       | YES  |     | NULL              |                   |
- * | date_of_report    | datetime   | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
- * +-------------------+------------+------+-----+-------------------+-------------------+
+/*
+ +-------------------+------------+------+-----+-------------------+-------------------+
+ | Field             | Type       | Null | Key | Default           | Extra             |
+ +-------------------+------------+------+-----+-------------------+-------------------+
+ | s_id              | int        | NO   | PRI | NULL              | auto_increment    |
+ | e_id              | int        | NO   | MUL | NULL              |                   |
+ | safety            | varchar(1) | NO   |     | -                 |                   |
+ | injury_flag       | tinyint(1) | NO   |     | 0                 |                   |
+ | work_flag         | tinyint(1) | NO   |     | 1                 |                   |
+ | other_information | text       | YES  |     | NULL              |                   |
+ | date_of_report    | datetime   | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
+ | di_id             | int        | YES  | MUL | NULL              |                   |
+ +-------------------+------------+------+-----+-------------------+-------------------+
  */

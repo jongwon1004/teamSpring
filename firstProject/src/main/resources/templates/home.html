@@ -37,8 +37,9 @@
 <div class="safety">
     <form method="post" th:action="@{/safetyForm}">
         <div hidden th:with="request=${#httpServletRequest}">
-            <input type="hidden" name="requestURI" th:value="${request.getRequestURI()}"></input>
+            <input type="hidden" name="requestURI" th:value="${request.getRequestURI()}"/>
         </div>
+        <input type="hidden" name="disasterId" th:value="${disasterId}"/>
         <div class="safety-box">
             <input
                     type="hidden"
@@ -172,37 +173,16 @@
                 <div class="news-title">災難安全　状況情報</div>
                 <div class="news">
                     <ul>
-                        <li>
+                        <li th:each="mainDi : ${mainLatestDisaster}">
                             <p class="title">速報</p>
-                            <p class="text" style="color: red">
-                                2023/04/27 18:52:03
-                                原州市で行方不明になったキム·ホンリョルさん(男、94歳)を
-                                さがしています
-                            </p>
-                        </li>
-                        <li>
-                            <p class="title">速報</p>
-                            <p class="text">
-                                2023/04/27 18:52:03
-                                原州市で行方不明になったキム·ホンリョルさん(男、
-                                不明になったキム·ホンリョルさん(男、94歳)
-                                不明になったキム·ホンリョルさん(男、94歳)
-                            </p>
-                        </li>
-                        <li>
-                            <p class="title">速報</p>
-                            <p class="text">
-                                2023/04/27 18:52:03
-                                原州市で行方不明になったキム·ホンリョルさん(男、94歳)不明になったキム·ホンリョルさん(男、94歳)
-                            </p>
-                        </li>
-                        <li>
-                            <p class="title">速報</p>
-                            <p class="text">
-                                2023/04/27 18:52:03
-                                原州市で行方不明になったキム·ホンリョルさん(男、94歳)
-                                不明になったキム·ホンリョルさん(男、94歳)
-                            </p>
+                            <div>
+                            <span class="text" style="color: red" th:text="|${mainDi.get('disasterTitle')}|"></span><br>
+                            <span class="text" style="color: red" th:text="|${#temporals.format(mainDi.get('disasterDate'), 'yyyy/MM/dd HH:mm:ss')}|">
+                            2023/04/27 18:52:03
+                            原州市で行方不明になったキム·ホンリョルさん(男、94歳)を
+                            さがしています
+                            </span>
+                            </div>
                         </li>
                     </ul>
                 </div>

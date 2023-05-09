@@ -6,6 +6,7 @@ import teamSpring.firstProject.domain.Safety;
 import teamSpring.firstProject.domain.SafetyFormData;
 import teamSpring.firstProject.domain.User;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -76,5 +77,17 @@ public class UserService {
 
     public String sessionGetEmpName(int sessionId) {
         return userDao.sessionGetEmpName(sessionId);
+    }
+
+    public Map<String, Object> getLatestDisaster() {
+        return userDao.latestDisaster();
+    }
+
+    public List<Map<String, Object>> getMainLatestDisaster() {
+        return userDao.mainLatestDisaster();
+    }
+
+    public void empDiIdUpdate(Integer disasterId) {
+        userDao.empDiIdUpdate(disasterId);
     }
 }

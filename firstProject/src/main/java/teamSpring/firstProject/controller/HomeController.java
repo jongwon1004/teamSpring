@@ -9,6 +9,8 @@ import teamSpring.firstProject.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +31,19 @@ public class HomeController {
     @RequestMapping(value = "/spring", method = RequestMethod.GET)
     public String index(Model model, HttpServletRequest request) {
 
+        /**
+         * メイン画面の安否登録フォームでdi_idを持てるための処理
+         */
+        Map<String, Object> latestDisaster = userService.getLatestDisaster();
+        Integer disasterId = (Integer) latestDisaster.get("disasterId");
+        model.addAttribute("disasterId", disasterId);
+
+
+        List<Map<String, Object>> mainLatestDisaster = userService.getMainLatestDisaster();
+//        List<Object> list = new ArrayList<>(mainLatestDisaster.values());
+        model.addAttribute("mainLatestDisaster", mainLatestDisaster);
+
+
         HttpSession session = request.getSession();
         String sessionId = (String) session.getAttribute("sessionId");
         log.info("sessionId={}", sessionId);
@@ -43,19 +58,6 @@ public class HomeController {
         model.addAttribute("empName", empName);
 
         return "home";
-    }
-
-    @RequestMapping(value = "/disasterRegister", method = RequestMethod.GET)
-    public String disasterRegister() {
-        return "/registerForm";
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/disasterRegister", method = RequestMethod.POST)
-    public String disasterRegister(@RequestParam String disaster) {
-        log.info("disaster={}", disaster);
-        userService.registerDisaster(disaster);
-        return "ok";
     }
 
     /**

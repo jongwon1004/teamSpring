@@ -5,9 +5,34 @@
 <mapper namespace="teamSpring.firstProject.dao.UserDao">
 
     <!-- 管理者が災害を登録する -->
-
     <insert id="registerDisaster" parameterType="String">
         INSERT INTO disaster(di_title)
         VALUES (#{disaster})
     </insert>
+
+    <!-- メイン画面で使う -->
+    <!-- 一番最近の災害情報４つを持ってくる -->
+    <select id="mainLatestDisaster" resultMap="latestDisasterMap">
+        SELECT * FROM disaster
+        ORDER BY di_id DESC
+        LIMIT 4
+    </select>
+
+    <!-- 一番最近の災害情報を持ってくる -->
+    <!-- このSQLは管理者が災害を登録した時にsafety_reportテーブルの全di_idをこのSQL文の結果のdi_idで初期化する -->
+    <select id="latestDisaster" resultMap="latestDisasterMap">
+        SELECT * FROM disaster
+        WHERE di_id = (SELECT MAX(di_id) FROM disaster)
+    </select>
+
+    <resultMap id="latestDisasterMap" type="java.util.Map">
+        <result column="di_id" property="disasterId"/>
+        <result column="di_title" property="disasterTitle"/>
+        <result column="di_date" property="disasterDate"/>
+    </resultMap>
+
+    <update id="empDiIdUpdate" parameterType="int">
+        UPDATE employee
+        SET di_id = #{disasterId}
+    </update>
 </mapper>

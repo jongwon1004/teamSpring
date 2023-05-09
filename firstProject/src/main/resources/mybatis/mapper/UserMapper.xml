@@ -67,17 +67,19 @@
             <if test="deptName != 'all'">
                 AND d.d_name = #{deptName}
             </if>
-
             AND (s.date_of_report IS NULL OR s.date_of_report = (
                     SELECT MAX(date_of_report)
                     FROM safety_report
                     WHERE e_id = s.e_id
                     )
-                )
+            )
+            AND s.di_id = (
+                SELECT MAX(di_id)
+                FROM disaster
+            )
             ORDER BY date_of_report DESC
         </where>
     </select>
-
 
     <resultMap id="safetyResult" type="Safety">  <!-- type="Safety"はdomainパッケージにSafetyクラスを見てみ -->
         <result column="d_name" property="authority"/>
@@ -151,9 +153,13 @@
                 FROM safety_report AS s2
                 WHERE s2.e_id = s1.e_id
                 ) AND s1.safety != '-'
+            AND s1.di_id = (
+                SELECT MAX(di_id)
+                FROM disaster
+            )
         ) AS s ON (s.e_id = e.e_id)
         GROUP BY d.d_name
-        ORDER BY d.d_name DESC;
+        ORDER BY d.d_name DESC
 
     </select>
 
@@ -228,8 +234,8 @@
     <!-- userRegisterForm.htmlのforデータを登録する -->
     
     <insert id="safetyRegistration" parameterType="SafetyFormData">
-        INSERT INTO safety_report (e_id, safety, injury_flag, work_flag, other_information)
-        VALUES (#{employeeId},#{saOrDa},#{injured},#{working},#{otherInfo});
+        INSERT INTO safety_report (e_id, safety, injury_flag, work_flag, other_information, di_id)
+        VALUES (#{employeeId},#{saOrDa},#{injured},#{working},#{otherInfo},#{disasterId});
     </insert>
 
     <!-- 管理者が新しいユーザーを登録する -->

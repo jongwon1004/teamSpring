@@ -4,13 +4,12 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.SqlSession;
 
 import org.springframework.stereotype.Repository;
+import teamSpring.firstProject.domain.ExcelResult;
 import teamSpring.firstProject.domain.Safety;
 import teamSpring.firstProject.domain.SafetyFormData;
 import teamSpring.firstProject.domain.User;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Mapper
 @Repository
@@ -110,5 +109,15 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void empDiIdUpdate(Integer disasterId) {
         sqlSession.update(namespace + "empDiIdUpdate", disasterId);
+    }
+
+    @Override
+    public void latestDiIdSafetyTable() {
+        sqlSession.insert(namespace + "latestDiIdSafetyTable");
+    }
+
+    @Override
+    public List<ExcelResult> excel() {
+        return sqlSession.selectList(namespace + "excel");
     }
 }

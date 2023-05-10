@@ -68,14 +68,10 @@
                 AND d.d_name = #{deptName}
             </if>
             AND (s.date_of_report IS NULL OR s.date_of_report = (
-                    SELECT MAX(date_of_report)
-                    FROM safety_report
-                    WHERE e_id = s.e_id
-                    )
+            SELECT MAX(date_of_report)
+            FROM safety_report
+            WHERE e_id = s.e_id
             )
-            AND s.di_id = (
-                SELECT MAX(di_id)
-                FROM disaster
             )
             ORDER BY date_of_report DESC
         </where>
@@ -153,10 +149,10 @@
                 FROM safety_report AS s2
                 WHERE s2.e_id = s1.e_id
                 ) AND s1.safety != '-'
-            AND s1.di_id = (
-                SELECT MAX(di_id)
-                FROM disaster
-            )
+#             AND s1.di_id = (
+#                 SELECT MAX(di_id)
+#                 FROM disaster
+#             )
         ) AS s ON (s.e_id = e.e_id)
         GROUP BY d.d_name
         ORDER BY d.d_name DESC
@@ -274,6 +270,35 @@
       WHERE s.safety = '-' AND e.d_id = 1
 
 -->
+
+    <select id="excel" resultMap="excelResult">
+        SELECT d.d_name, e.e_name, s.safety, s.date_of_report, e.e_id, s.di_id
+        FROM employee AS e
+                 JOIN department AS d ON ( e.d_id = d.d_id )
+                 LEFT JOIN safety_report AS s ON( s.e_id = e.e_id )
+        WHERE 1 = 1
+          AND (d.d_name LIKE CONCAT('%', '', '%')
+            OR e.e_id LIKE CONCAT('%', '', '%'))
+          AND d.d_name IN (SELECT d_name FROM department)
+          AND (s.date_of_report IS NULL OR s.date_of_report = (
+            SELECT MAX(date_of_report)
+            FROM safety_report
+            WHERE e_id = s.e_id
+        ))
+
+
+        ORDER BY date_of_report DESC
+    </select>
+
+    <resultMap id="excelResult" type="ExcelResult">
+        <result column="d_name" property="authority"/>
+        <result column="e_name" property="employeeName"/>
+        <result column="safety" property="safety"/>
+        <result column="date_of_report" property="reportDate"/>
+        <result column="e_id" property="employeeId"/>
+        <result column="di_id" property="disasterId"/>
+    </resultMap>
+
 
 
 </mapper>

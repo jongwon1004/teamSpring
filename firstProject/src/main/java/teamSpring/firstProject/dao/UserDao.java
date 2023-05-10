@@ -1,5 +1,6 @@
 package teamSpring.firstProject.dao;
 
+import teamSpring.firstProject.domain.ExcelResult;
 import teamSpring.firstProject.domain.Safety;
 import teamSpring.firstProject.domain.SafetyFormData;
 import teamSpring.firstProject.domain.User;
@@ -42,5 +43,9 @@ public interface UserDao {
     List<Map<String, Object>> mainLatestDisaster();
 
     void empDiIdUpdate(Integer disasterId);
+
+    void latestDiIdSafetyTable();
+
+    List<ExcelResult> excel();
 }
 

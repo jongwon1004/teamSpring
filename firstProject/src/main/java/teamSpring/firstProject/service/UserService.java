@@ -2,6 +2,7 @@ package teamSpring.firstProject.service;
 
 import org.springframework.stereotype.Service;
 import teamSpring.firstProject.dao.UserDao;
+import teamSpring.firstProject.domain.ExcelResult;
 import teamSpring.firstProject.domain.Safety;
 import teamSpring.firstProject.domain.SafetyFormData;
 import teamSpring.firstProject.domain.User;
@@ -89,5 +90,13 @@ public class UserService {
 
     public void empDiIdUpdate(Integer disasterId) {
         userDao.empDiIdUpdate(disasterId);
+    }
+
+    public void getLatestDiIdSafetyTable() {
+        userDao.latestDiIdSafetyTable();
+    }
+
+    public List<ExcelResult> getExcel() {
+        return userDao.excel();
     }
 }

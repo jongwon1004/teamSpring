@@ -28,6 +28,8 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time:3.0.4.RELEASE'
+	implementation 'org.apache.poi:poi:5.1.0'
+	implementation 'org.apache.poi:poi-ooxml:5.1.0'
 
 
 }

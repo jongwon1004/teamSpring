@@ -22,14 +22,10 @@
     <!-- 로그아웃글씨 -->
     <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet"/>
 
-    <!-------------- ↓↓↓↓안부표 글씨 ↓↓↓↓-------------->
 
-    <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@500&display=swap" rel="stylesheet"/>
+    <!-- 안부표 글씨  -->
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Antique+B1&display=swap" rel="stylesheet">
 
-    <!-- 안부표 테이블 전체 글씨  -->
-    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@500&display=swap" rel="stylesheet">
-    <!-- 안부표 타이틀 글씨 -->
-    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" th:href="@{/css/safety-chart.css}">
 <!--    <link rel="stylesheet" th:href="@{/css/style.css}">-->
@@ -178,7 +174,7 @@
                             <option value="empName" th:selected="${searchType == 'empName'}">社員名</option>
                             <option value="empId" th:selected="${searchType == 'empId'}">社員番号</option>
                         </select>
-                        <input type="text" name="searchKeyword" th:value="${searchKeyword}" style=" width: 194px;border: 3px solid #b0afaf;border-radius: 10px;height: 25px;" />
+                        <input type="text" name="searchKeyword" th:value="${searchKeyword}" style=" width: 194px;border: 3px solid #b0afaf;border-radius: 7px;height: 26px;" />
                         <button type="submit" class="searchButton">検索</button>
                         <input type="hidden" name="deptName" th:value="${deptName}">
                     </form>
@@ -204,7 +200,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="middle-table">
+            <div class="middle-table" style="font-family: 'Shippori Antique B1', sans-serif;">
                 <table>
                     <thead>
                     <tr>

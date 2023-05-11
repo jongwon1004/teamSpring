@@ -35,6 +35,10 @@
             href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@500&display=swap"
             rel="stylesheet"
     />
+
+    <!-- 상세정보 글씨체 부서,이름 등    -->
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Antique+B1&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" th:href="@{/css/userDetailInformation.css}">
 <!--    <link rel="stylesheet" th:href="@{/css/style.css}">-->
 </head>
@@ -180,7 +184,8 @@
                     </div>
                     <div class="state">
                         <p class="title">状況</p>
-                        <p th:text="${userSafetyDetail.get(0).get('safety')}" style="font-size: 19px">○</p>
+                        <p th:if="${userSafetyDetail.get(0).get('safety')} == 'o'" style="font-size: 19px">安全な状況である</p>
+                        <p th:if="${userSafetyDetail.get(0).get('safety')} == 'x'" style="font-size: 19px">危険な状況である</p>
                     </div>
                     <div class="wound">
                         <p class="title">怪我</p>

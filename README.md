@@ -37,5 +37,5 @@
 <img width="1511" alt="스크린샷 2023-05-01 21 34 43" src="https://user-images.githubusercontent.com/106206924/235452532-37d6dbf2-8de4-47f4-98a9-2bb98edda691.png">
 
 # メイン画面
-<img width="1511" alt="스크린샷 2023-05-01 21 30 17" src="https://user-images.githubusercontent.com/106206924/235452042-41969bf0-cabe-42da-aa76-5d756587f79f.png">
+<img width="1512" alt="스크린샷 2023-05-12 03 53 58" src="https://github.com/jongwon1004/teamSpring/assets/106206924/1ee80ddf-72c8-403a-828f-b91f98d7bfda">
 

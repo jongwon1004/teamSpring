@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- logo 글씨체 -->
     <link
-            href="https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap"
             rel="stylesheet"
     />
 
@@ -99,26 +99,54 @@
 
 <header>
     <div class="inner">
-        <div class="box">
+        <div class="box" style="height: 125px">
+            <!--  재해 등록할때 버튼 1개 추가되면 포지션 앱솔루트랑 레프트 바텀으로 위치 조절만 하면 스프링로고는 영향 안감  -->
             <div th:if="${empName == 'admin'}">
-                <button
-                        style="
-                        border-radius: 20px;
-                        background-color: whitesmoke;
-                    ">
-                    <a
-                            th:href="@{/userRegister}"
+                <div>
+                    <button
                             style="
+                        border-radius: 13px;
+                        background-color: whitesmoke;
+                        position: absolute;
+                        bottom: 26px;
+                        height: 50px;
+                        border: 6px solid #3c447d;
+                    ">
+                        <a
+                                th:href="@{/userRegister}"
+                                style="
                             text-decoration: none;
                             color: #314178;
                             font-size: 17px;
                             font-weight: bold;
                         "
-                    >ユーザー登録
-                    </a>
-                </button>
+                        >ユーザー登録
+                        </a>
+                    </button>
+                    <button
+                            style="
+                        border-radius: 13px;
+                        background-color: whitesmoke;
+                        position: absolute;
+                        bottom: 26px;
+                        left: 140px;
+                        height: 50px;
+                        border: 6px solid #3c447d;
+                    ">
+                        <a
+                                th:href="@{/disasterRegister}"
+                                style="
+                            text-decoration: none;
+                            color: #314178;
+                            font-size: 17px;
+                            font-weight: bold;
+                        "
+                        >災害登録
+                        </a>
+                    </button>
+                </div>
             </div>
-            <div class="logo"><a th:href="@{/spring}" style="text-decoration: none; color: black">Spring</a></div>
+            <div class="logo"><a th:href="@{/spring}" style="text-decoration: none; color: #2a4383;">Spring</a></div>
             <!-- <div class="header-button"><button>安否登録</button></div> -->
             <div class="log-out">
                 <div>
@@ -133,6 +161,7 @@
         </div>
     </div>
 </header>
+
 <!-- -----------------------------------ここまで header ----------------------- -->
 <div class="title">
     <div class="title-inner">

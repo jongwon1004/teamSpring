@@ -35,4 +35,27 @@
         UPDATE employee
         SET di_id = #{disasterId}
     </update>
+
+<!--    <insert id="latestDiIdSafetyTable" parameterType="Map">-->
+<!--        <foreach collection="list" item="user" separator=";">-->
+<!--        INSERT INTO safety_report(e_id, di_id)-->
+<!--        SELECT e.e_id, e.di_id-->
+<!--        FROM employee AS e-->
+<!--        WHERE e.e_id = #{user.e_id} AND e.di_id = #{user.di_id}-->
+<!--        </foreach>-->
+<!--    </insert>-->
+
+    <insert id="latestDiIdSafetyTable">
+            INSERT INTO safety_report(e_id, di_id)
+            SELECT e.e_id, e.di_id
+            FROM employee AS e
+            WHERE e.di_id = (
+                SELECT MAX(e1.di_id)
+                FROM employee AS e1
+            )
+    </insert>
+
+
+
+
 </mapper>

@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import teamSpring.firstProject.domain.User;
 import teamSpring.firstProject.service.UserService;
 
@@ -23,6 +24,20 @@ public class HomeController {
     public HomeController(UserService userService) {
         this.userService = userService;
     }
+
+    @ModelAttribute("sessionId")
+    public String sessionId(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        return (String) session.getAttribute("sessionId");
+    }
+
+    @ModelAttribute("empName")
+    public String empName(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String sessionId = (String) session.getAttribute("sessionId");
+        return userService.sessionGetEmpName(Integer.parseInt(sessionId));
+    }
+
 
 
     /**
@@ -55,10 +70,18 @@ public class HomeController {
          */
         model.addAttribute("sessionId", sessionId);
         String empName = userService.sessionGetEmpName(Integer.parseInt(sessionId));
+        log.info("empName={}", empName);
+
         model.addAttribute("empName", empName);
 
+//        ModelAndView mav = new ModelAndView();
+//        mav.addObject("sessionId", sessionId);
+//        mav.addObject("empName", empName);
+//        mav.setViewName("userSafetyDetail");
+//        mav.setViewName("safetyTable");
         return "home";
     }
+
 
     /**
      * 管理者がユーザを登録をする画面
@@ -73,5 +96,13 @@ public class HomeController {
         userService.userRegister(user);
         log.info("User={}", user);
         return "redirect:/spring";
+    }
+
+    @RequestMapping(value = "/contact", method = RequestMethod.GET)
+    public String contact(Model model) {
+        Map<String, Object> latestDisaster = userService.getLatestDisaster();
+        Integer disasterId = (Integer) latestDisaster.get("disasterId");
+        model.addAttribute("disasterId", disasterId);
+        return "contact";
     }
 }

@@ -13,22 +13,28 @@ header {
 }
 header > .inner > .box {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     height: 100px;
+    position: relative;
 }
 header > .inner > .box > .logo {
+    width: 1200px;
     height: 100px;
-    font-size: 60px;
-    font-family: "Tilt Neon", cursive;
-    padding-left: 510px;
+    font-size: 73px;
+    font-family: "Racing Sans One", cursive;
+    color: #2a4383;
+    padding-left: 485px;
 }
 header > .inner > .box > .log-out {
     width: 400px;
     height: 100px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-around;
+    align-items: flex-end;
+    margin-bottom: 30px;
+    position: absolute;
+    right: 0;
 }
 header > .inner > .box > .log-out > div > .now-btn {
     width: 170px;
@@ -43,6 +49,7 @@ header > .inner > .box > .log-out > div > .now-btn {
 }
 
 header > .inner > .box > .log-out > .hello-User {
+    font-weight: bold;
     border-style: none;
     font-family: "Kosugi Maru", sans-serif;
     background-color: white;
@@ -54,10 +61,19 @@ header > .inner > .box > .log-out > .logout-text {
     border-style: none;
     font-family: "Kosugi Maru", sans-serif;
     background-color: white;
-    line-height: 22px;
+    line-height: 40px;
     text-align: center;
     cursor: pointer;
+    font-weight: bold;
 }
+
+/**
+
+ heder
+
+ */
+
+
 nav {
     font-size: 10px;
     /* background-color: aquamarine; */

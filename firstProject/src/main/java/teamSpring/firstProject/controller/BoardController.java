@@ -9,6 +9,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import teamSpring.firstProject.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +28,22 @@ public class BoardController {
         log.info("employeeID={}", empId);
         log.info("request={}", request.getRequestURI());
 
+
+        /**
+         * sessionId check
+         */
+        HttpSession session = request.getSession();
+        String sessionId = (String) session.getAttribute("sessionId");
+        log.info("sessionId={}", sessionId);
+        model.addAttribute("sessionId", sessionId);
+
+        Map<String, Object> latestDisaster = userService.getLatestDisaster();
+        Integer disasterId = (Integer) latestDisaster.get("disasterId");
+        model.addAttribute("disasterId", disasterId);
+
+        String empName = userService.sessionGetEmpName(Integer.parseInt(sessionId));
+        log.info("empName={}", empName);
+        model.addAttribute("empName", empName);
         List<Map<String, Object>> userSafetyDetail = null;
 
         try {

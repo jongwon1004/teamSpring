@@ -52,7 +52,6 @@ public class SafetyController {
         model.addAttribute("empName", empName);
         // ここまで
 
-
         model.addAttribute("searchType", searchType);
         model.addAttribute("searchKeyword", searchKeyword);
         model.addAttribute("deptName", deptName);

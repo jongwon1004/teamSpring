@@ -39,3 +39,6 @@
 # メイン画面
 <img width="1512" alt="스크린샷 2023-05-12 03 53 58" src="https://github.com/jongwon1004/teamSpring/assets/106206924/1ee80ddf-72c8-403a-828f-b91f98d7bfda">
 
+# 安否表
+<img width="1512" alt="스크린샷 2023-05-12 03 57 16" src="https://github.com/jongwon1004/teamSpring/assets/106206924/30b7cff8-e616-4b3b-abe2-16a39564d2d0">
+

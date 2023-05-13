@@ -47,5 +47,9 @@ public interface UserDao {
     void latestDiIdSafetyTable();
 
     List<ExcelResult> excel();
+
+    void allSafetyTableDataDelete();
+
+//    void resetSafetyTable();
 }
 

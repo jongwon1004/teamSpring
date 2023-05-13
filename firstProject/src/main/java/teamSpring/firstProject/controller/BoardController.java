@@ -49,7 +49,8 @@ public class BoardController {
         try {
             userSafetyDetail = userService.getUserSafetyDetail(empId);
             log.info("userSafetyDetail={}", userSafetyDetail);
-            Object safety = userSafetyDetail.get(0).get("other_information");
+            Object safety = userSafetyDetail.get(0).get("date_of_report");
+
             log.info("other_Information={}", safety);
 
             model.addAttribute("userSafetyDetail", userSafetyDetail);

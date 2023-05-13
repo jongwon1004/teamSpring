@@ -98,4 +98,12 @@ public class UserService {
     public List<ExcelResult> getExcel() {
         return userDao.excel();
     }
+
+    public void allSafetyTableDataDelete() {
+        userDao.allSafetyTableDataDelete();
+    }
+
+//    public void resetSafetyTable() {
+//        userDao.resetSafetyTable();
+//    }
 }

@@ -22,6 +22,7 @@ logoutButton.addEventListener('click', () => {
   }
 });
 
+
 nowBtn.addEventListener("click", () => {
   modalBack.style.display = "block";
   safetyBox.style.display = "block";

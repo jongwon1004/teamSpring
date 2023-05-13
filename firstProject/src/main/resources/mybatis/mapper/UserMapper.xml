@@ -68,11 +68,12 @@
                 AND d.d_name = #{deptName}
             </if>
             AND (s.date_of_report IS NULL OR s.date_of_report = (
-            SELECT MAX(date_of_report)
-            FROM safety_report
-            WHERE e_id = s.e_id
+                SELECT MAX(date_of_report)
+                FROM safety_report
+                WHERE e_id = s.e_id
+                )
             )
-            )
+            AND e.di_id = (SELECT MAX(di_id) FROM disaster)
             ORDER BY date_of_report DESC
         </where>
     </select>
@@ -228,7 +229,7 @@
 -->
 
     <!-- userRegisterForm.htmlのforデータを登録する -->
-    
+    <!-- 변경 전 -->
     <insert id="safetyRegistration" parameterType="SafetyFormData">
         INSERT INTO safety_report (e_id, safety, injury_flag, work_flag, other_information, di_id)
         VALUES (#{employeeId},#{saOrDa},#{injured},#{working},#{otherInfo},#{disasterId});
@@ -298,6 +299,10 @@
         <result column="e_id" property="employeeId"/>
         <result column="di_id" property="disasterId"/>
     </resultMap>
+
+    <delete id="allSafetyTableDataDelete">
+        DELETE FROM safety_report
+    </delete>
 
 
 

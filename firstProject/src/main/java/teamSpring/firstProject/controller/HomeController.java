@@ -65,6 +65,7 @@ public class HomeController {
 
         List<Map<String, Object>> reportTable = userService.getReportTable();
         model.addAttribute("reportTable", reportTable);
+        log.info("reportTable={}", reportTable);
         /**
          * セッションから持ってきて管理者がユーザーを登録してからまた登録できるようにする
          */

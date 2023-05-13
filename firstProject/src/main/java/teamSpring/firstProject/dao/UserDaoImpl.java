@@ -120,4 +120,9 @@ public class UserDaoImpl implements UserDao {
     public List<ExcelResult> excel() {
         return sqlSession.selectList(namespace + "excel");
     }
+
+    @Override
+    public void allSafetyTableDataDelete() {
+        sqlSession.delete(namespace + "allSafetyTableDataDelete");
+    }
 }

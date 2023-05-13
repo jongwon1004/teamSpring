@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index Page</title>
+</head>
+<body>
+<div>
+    部署　：　<span th:text="${userSafetyDetail.get(0).get('d_name')}"></span><br>
+    名前　：　<span th:text="${userSafetyDetail.get(0).get('e_name')}"></span><br>
+    社員番号　：　<span th:text="${userSafetyDetail.get(0).get('e_id')}"></span><br>
+    状況　：　<span th:text="${userSafetyDetail.get(0).get('safety')}"></span><br>
+    怪我　：　
+        <span th:if="${userSafetyDetail.get(0).get('injury_flag') == true}">ケガしてる<br></span>
+        <span th:if="${userSafetyDetail.get(0).get('injury_flag') == false}">ケガしてない<br></span>
+
+    出社　：　
+        <span th:if="${userSafetyDetail.get(0).get('work_flag') == true}">出社可能<br></span>
+        <span th:if="${userSafetyDetail.get(0).get('work_flag') == false}">出社不可能<br></span>
+
+    登録日　：　　<span th:text="${#temporals.format(userSafetyDetail.get(0).get('date_of_report'), 'yyyy/MM/dd HH:mm:ss')}"></span><br>
+    伝えたい情報　：　<span th:text="${userSafetyDetail.get(0).get('other_information')}"></span><br>
+
+    <button onclick="history.back()">뒤로 가기</button>
+</div>
+
+<ul>
+</ul>
+</body>
+</html>

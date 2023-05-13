@@ -1,0 +1,30 @@
+//package teamSpring.firstProject.changwoo;
+//
+//import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.web.bind.annotation.RestController;
+//import teamSpring.firstProject.service.UserService;
+//
+//import javax.servlet.http.HttpServletResponse;
+//import java.util.List;
+//import java.util.Map;
+//
+//@RestController
+//public class ChanController {
+//
+//    final
+//    UserService userService;
+//
+//    public ChanController(UserService userService) {
+//        this.userService = userService;
+//    }
+//
+//    @RequestMapping("/api/test2")
+//    public List<Map<String,Object>> hello(HttpServletResponse response) throws Exception {
+//        List<Map<String, Object>> users = userService.users();
+//        response.setHeader("Access-Control-Allow-Origin", "*");
+//        System.out.println(users);
+//        System.out.println("hello world");
+//
+//        return users;
+//    }
+//}

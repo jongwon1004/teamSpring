@@ -1,0 +1,318 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    /* background-color: aqua; */
+}
+.inner {
+    margin: 0 auto;
+    width: 1200px;
+    /* background-color: beige; */
+    /* background-color: azure; */
+}
+
+header {
+    border-bottom: 1px solid #c6d6e3;
+}
+header > .inner > .box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    position: relative;
+}
+header > .inner > .box > .logo {
+    width: 1200px;
+    height: 100px;
+    font-size: 73px;
+    font-family: "Racing Sans One", cursive;
+    color: #2a4383;
+    padding-left: 485px;
+}
+header > .inner > .box > .log-out {
+    width: 400px;
+    height: 100px;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    margin-bottom: 30px;
+    position: absolute;
+    right: 0;
+}
+header > .inner > .box > .log-out > div > .now-btn {
+    width: 170px;
+    height: 50px;
+    background-color: white;
+    font-size: 20px;
+    border: 6px solid #3c447d;
+    border-radius: 45px;
+    font-weight: bold;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    cursor: pointer;
+}
+
+header > .inner > .box > .log-out > .hello-User {
+    font-weight: bold;
+    border-style: none;
+    font-family: "Kosugi Maru", sans-serif;
+    background-color: white;
+    line-height: 22px;
+    text-align: center;
+}
+
+header > .inner > .box > .log-out > .logout-text {
+    border-style: none;
+    font-family: "Kosugi Maru", sans-serif;
+    background-color: white;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+footer {
+    width: 100%;
+    height: 80px;
+    padding: 20px 0 30px;
+    font-size: 10px;
+    line-height: 15px;
+    text-align: center;
+    background-color: #dadada;
+    /* color: #999; */
+    color: #6a6a6a;
+}
+
+/* --------------------지금바로 등록하기 버튼-------------------- */
+
+.safety {
+    position: fixed;
+    /* position: fixed; */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 600px;
+    background-color: whitesmoke;
+    z-index: 1000;
+    border: 3px solid blue;
+    /* position: absolute; */
+    display: none;
+}
+
+.safety > form > .safety-box {
+    width: 500px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.safety > form > .safety-box > .safety-header {
+    height: 100px;
+    background-color: #264db5;
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 3;
+}
+
+.safety > form > .safety-box > .safety-middle {
+    height: 225px;
+    text-align: center;
+    line-height: 1;
+}
+.safety > form > .safety-box > .safety-middle > p {
+    font-size: 25px;
+    font-weight: bolder;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.safety > form > .safety-box > .safety-bottom {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-left: 40px;
+}
+.safety > form > .safety-box > .safety-bottom > p {
+    font-size: 15px;
+    font-weight: bolder;
+}
+.safety > form > .safety-box > .safety-button {
+    height: 75px;
+    display: flex;
+    justify-content: space-between;
+}
+.safety > form > .safety-box > .safety-button > .safety-yes {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.safety > form > .safety-box > .safety-button > .safety-yes > button {
+    width: 100%;
+    height: 100%;
+    border-style: none;
+    background-color: #264db5;
+    color: white;
+    font-size: 25px;
+}
+.safety > form > .safety-box > .safety-button > .safety-no {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.safety > form > .safety-box > .safety-button > .safety-no > .safety-no-Btn {
+    width: 100%;
+    height: 100%;
+    background-color: #264db5;
+    color: white;
+    font-size: 25px;
+    border-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left: 1px solid;
+}
+.modal-back {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgb(0, 0, 0, 0.6);
+    z-index: 999;
+    display: none;
+}
+
+main {
+    margin-top: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+main > .inner {
+    width: 1200px;
+    height: 800px;
+}
+main > .inner > .box {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: whitesmoke;
+}
+main > .inner > .box > .box-header {
+    width: 1200px;
+    height: 100px;
+    background-color: #03166c;
+    color: white;
+    font-size: 40px;
+    font-family: "M PLUS 1p", sans-serif;
+    border: 1px solid #dddddd;
+    display: flex;
+    justify-content: center;
+}
+main > .inner > .box > .box-header > p {
+    width: 1000px;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+    line-height: 100px;
+}
+main > .inner > .box > .imformation-box {
+    margin-top: 30px;
+    width: 1200px;
+    height: 600px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #dddddd;
+}
+main > .inner > .box > .imformation-box > .name-box {
+    width: 1200px;
+    height: 80px;
+    font-size: 35px;
+    font-weight: bold;
+    line-height: 3;
+}
+main > .inner > .box > .imformation-box > .name-box > p {
+    margin: 0;
+    padding: 0;
+    margin-left: 100px;
+    height: 80px;
+    width: 1000px;
+    border-bottom: 3px solid whitesmoke;
+}
+main > .inner > .box > .imformation-box > .detail-imformaition {
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    height: 470px;
+}
+main
+> .inner
+> .box
+> .imformation-box
+> .detail-imformaition
+> div:nth-child(odd)
+> p {
+    margin-left: 100px;
+}
+main > .inner > .box > .imformation-box > .detail-imformaition > div {
+    width: 600px;
+    height: 117px;
+}
+main > .inner > .box > .imformation-box > .detail-imformaition > div > p {
+    margin: 0;
+    padding: 0;
+    width: 480px;
+    color: #454545;
+}
+main
+> .inner
+> .box
+> .imformation-box
+> .detail-imformaition
+> div
+> p:nth-child(2) {
+    margin-top: 10px;
+    height: 80px;
+}
+main
+> .inner
+> .box
+> .imformation-box
+> .detail-imformaition
+> div
+> p:nth-child(1) {
+    height: 35px;
+}
+main
+> .inner
+> .box
+> .imformation-box
+> .detail-imformaition
+> div:nth-child(6)
+> p:nth-child(2) {
+    height: 190px;
+}
+main > .inner > .box > .imformation-box > .detail-imformaition > div > .title {
+    border-bottom: 3px solid whitesmoke;
+    font-size: 25px;
+    color: black;
+    font-weight: bold;
+    font-family: 'Shippori Antique B1', sans-serif;
+}
+
+.back-Button {
+    border-radius: 23px;
+    width: 110px;
+    height: 60px;
+}

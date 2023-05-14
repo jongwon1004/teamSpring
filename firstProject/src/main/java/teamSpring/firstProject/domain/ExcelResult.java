@@ -15,4 +15,7 @@ public class ExcelResult {
         private LocalDateTime reportDate;
         private Integer employeeId; // 안부표 상세정보 링크걸때 사용하기 위해서 추가
         private Integer disasterId;
+        private String injury;
+        private String work;
+        private String otherInfo;
 }

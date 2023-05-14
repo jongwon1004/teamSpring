@@ -19,13 +19,12 @@ public class RegisterController {
         this.userService = userService;
     }
 
-    @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addUser(HttpServletRequest request, @RequestBody User user) {
 //        System.out.println("request.getParameter(\"id\") = " + request.getParameter("id"));
         log.info("URI={}", request);
         log.info("USER={}", user);
         userService.addUser(user);
-        return "ok";
+        return "home";
     }
 }

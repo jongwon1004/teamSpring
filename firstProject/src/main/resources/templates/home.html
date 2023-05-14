@@ -186,7 +186,7 @@
 
 <nav style="background-color: #314178">
     <marquee behavior="scroll" scrolldelay="250" height="30" style="color: white; font-weight: bold; font-size: 14px">
-        2023/04/27 18:52:03 原州市で行方不明になったキム·ホンリョルさん(男、94歳)を さがしています
+        <span th:text="${mainLatestDisaster[0].get('disasterTitle')}"/>
     </marquee>
 </nav>
 <section>
@@ -272,12 +272,19 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="table : ${reportTable}" >
-                        <td th:text="|${table.dpName}の${table.name} さんが安否登録をしました |"></td>
-                        <td th:text="${#temporals.format(table.reportDate, 'yyyy/MM/dd HH:mm:ss')}" style="text-align: center; font-size: 20px"></td>
-                        <td th:if="${table.safety == 'o'}" style="text-align: center">安全</td>
-                        <td th:if="${table.safety == 'x'}" style="text-align: center">危険</td>
-                    </tr>
+                    <th:block th:if="${reportTable == null || reportTable.isEmpty()}">
+                        <tr>
+                            <td colspan="3" style="text-align: center; font-weight: bold;">素早く安否登録を行って下さい</td>
+                        </tr>
+                    </th:block>
+                    <th:block th:if="${reportTable != null && reportTable.size() > 0}">
+                        <tr th:each="table : ${reportTable}">
+                            <td th:text="|${table.dpName}の${table.name}さんが安否登録をしました |" style="padding-left: 15px"></td>
+                            <td th:text="${#temporals.format(table.reportDate, 'yyyy/MM/dd HH:mm:ss')}" style="text-align: center; font-size: 20px"></td>
+                            <td th:if="${table.safety == 'o'}" style="text-align: center">安全</td>
+                            <td th:if="${table.safety == 'x'}" style="text-align: center">危険</td>
+                        </tr>
+                    </th:block>
                     </tbody>
                 </table>
             </div>

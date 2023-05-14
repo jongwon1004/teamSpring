@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import teamSpring.firstProject.dao.ExcelResultDaoImpl;
+import teamSpring.firstProject.domain.ExcelResult;
 import teamSpring.firstProject.service.UserService;
 
 import java.util.List;
@@ -27,7 +29,6 @@ public class DisasterController {
         return "/registerForm";
     }
 
-    @ResponseBody
     @RequestMapping(value = "/disasterRegister", method = RequestMethod.POST)
     public String disasterRegister(@RequestParam String disaster) throws Exception {
         log.info("disaster={}", disaster);
@@ -41,9 +42,16 @@ public class DisasterController {
         // 持ってきたdi_idの値をemployeeテーブルのdi_idにupdate
         userService.empDiIdUpdate(disasterId);
 
+        List<ExcelResult> excel = userService.getExcel();
+        System.out.println("excel = " + excel);
+
+        ExcelResultDaoImpl excelResultDao = new ExcelResultDaoImpl();
+
+        excelResultDao.createExcel(excel);
+
         userService.allSafetyTableDataDelete();
 
-        return "ok";
+        return "redirect:/spring";
     }
 }
 

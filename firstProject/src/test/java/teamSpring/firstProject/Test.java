@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import teamSpring.firstProject.dao.ExcelResultDaoImpl;
 import teamSpring.firstProject.domain.ExcelResult;
+import teamSpring.firstProject.domain.Safety;
+import teamSpring.firstProject.domain.SafetyFormData;
 import teamSpring.firstProject.service.UserService;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 
 @SpringBootTest
@@ -37,4 +40,26 @@ public class Test {
 
         excelResultDao.createExcel(excel);
     }
+
+    @org.junit.jupiter.api.Test
+    void insertAllEmpSafetyInformation() throws Exception{
+        List<Map<String, Object>> users = userService.users();
+        Map<String, Object> latestDisaster = userService.getLatestDisaster();
+        Object di_id = latestDisaster.get("di_id");
+
+        for(int i = 0; i < users.size(); i++) {
+            SafetyFormData safetyFormData = new SafetyFormData();
+
+            safetyFormData.setEmployeeId((Integer) users.get(i).get("e_id"));
+            String[] options = {"o", "x"};
+            String randomOption = options[new Random().nextInt(options.length)];
+            safetyFormData.setSaOrDa(randomOption);
+            safetyFormData.setInjured(true);
+            safetyFormData.setWorking(true);
+            safetyFormData.setOtherInfo("tasukete!!!!!!!!!!!!!");
+            safetyFormData.setDisasterId((Integer) di_id);
+            userService.getSafetyRegistration(safetyFormData);
+        }
+    }
+
 }

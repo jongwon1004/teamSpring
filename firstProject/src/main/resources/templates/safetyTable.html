@@ -36,7 +36,7 @@
 <div class="safety">
     <form method="post" th:action="@{/safetyForm}">
         <div hidden th:with="request=${#httpServletRequest}">
-            <input type="hidden" name="requestURI" th:value="${request.getRequestURI()}"></input>
+            <input type="hidden" name="requestURI" th:value="${request.getRequestURI()}">
         </div>
         <input type="hidden" name="disasterId" th:value="${disasterId}"/>
         <div class="safety-box">
@@ -159,6 +159,7 @@
 </header>
 
 <!-- -----------------------------------ここまで header ----------------------- -->
+<div>
 <div class="title">
     <div class="title-inner">
         <a th:href="@{/safetyTable}" style="color: black; text-decoration: none"><p>安否表</p></a>
@@ -263,6 +264,7 @@
         </div>
     </div>
 </section>
+</div>
 <footer>
     <p>
         このサイトはteamSpringによって作られ、みんなさんの安全対策及び、素早い安否登録を行えるため色んな情報を提供しています。
@@ -271,10 +273,13 @@
     <em>© KURLY CORP. ALL RIGHTS RESERVED</em>
     <script type="text/javascript">
         let message = '[[${message}]]';
-        if(message == 'NOT_USERINFORMATION') {
-            alert("選択した社員はまだ安否登録を行っていません！")
+        let currentURL = window.location.href; // 현재 URI 값을 저장
+
+        if (message == 'NOT_USERINFORMATION') {
+            alert("選択した社員はまだ安否登録を行っていません！");
         }
     </script>
+
 </footer>
 <script src="/js/safety-chart.js"></script>
 </body>

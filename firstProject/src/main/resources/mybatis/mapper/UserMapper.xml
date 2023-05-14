@@ -237,8 +237,8 @@
 
     <!-- 管理者が新しいユーザーを登録する -->
     <insert id="userRegister" parameterType="User">
-        INSERT INTO employee (e_id, e_name, password, Cellphone, d_id)
-        values (#{id},#{name},#{pwd},#{cellphone},#{departmentId});
+        INSERT INTO employee (e_id, e_name, password, Cellphone, d_id,di_id)
+        values (#{id},#{name},#{pwd},#{cellphone},#{departmentId},(SELECT MAX(di_id) FROM disaster));
     </insert>
     
 <!--    <select id="userSafetyDetail" parameterType="int" resultType="Map">-->
@@ -273,7 +273,8 @@
 -->
 
     <select id="excel" resultMap="excelResult">
-        SELECT d.d_name, e.e_name, s.safety, s.date_of_report, e.e_id, s.di_id
+        SELECT d.d_name, e.e_name, s.safety, s.injury_flag, s.work_flag, s.other_information,
+               s.date_of_report, e.e_id, s.di_id
         FROM employee AS e
                  JOIN department AS d ON ( e.d_id = d.d_id )
                  LEFT JOIN safety_report AS s ON( s.e_id = e.e_id )
@@ -298,6 +299,9 @@
         <result column="date_of_report" property="reportDate"/>
         <result column="e_id" property="employeeId"/>
         <result column="di_id" property="disasterId"/>
+        <result column="injury_flag" property="injury"/>
+        <result column="work_flag" property="work"/>
+        <result column="other_information" property="otherInfo"/>
     </resultMap>
 
     <delete id="allSafetyTableDataDelete">

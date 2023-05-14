@@ -242,7 +242,7 @@ section > .inner > .box > .right-box > .box-middle > div {
     justify-content: center;
 }
 .section-middle > .inner > .box > .middle-right > table {
-    width: 720px;
+    width: 775px;
     /* border-spacing: 0; */
     /* background-color: #dadada; */
     /* border-collapse: separate; */
@@ -266,7 +266,7 @@ section > .inner > .box > .right-box > .box-middle > div {
 } */
 .section-middle > .inner > .box > .middle-right > table > tbody > tr {
     font-family: "Zen Maru Gothic", sans-serif;
-    font-size: 19px;
+    font-size: 17px;
     font-weight: bold;
 }
 tr:nth-child(even) {

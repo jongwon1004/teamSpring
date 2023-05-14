@@ -19,33 +19,28 @@ public class Test {
     @Autowired
     UserService userService;
 
-
-//    @Autowired
-//    ExcelResultDaoImpl excelResultDao;
-
     @org.junit.jupiter.api.Test
     void test() throws Exception {
-//        List<Map<String, Object>> users = userService.users();
-//        System.out.println("users = " + users);
         userService.getLatestDiIdSafetyTable();
-
     }
 
     @org.junit.jupiter.api.Test
     void test2() throws Exception {
         List<ExcelResult> excel = userService.getExcel();
-        System.out.println("excel = " + excel);
-
         ExcelResultDaoImpl excelResultDao = new ExcelResultDaoImpl();
 
         excelResultDao.createExcel(excel);
     }
 
+    /**
+     * 全社員の安否登録をするテストコード
+     */
     @org.junit.jupiter.api.Test
     void insertAllEmpSafetyInformation() throws Exception{
         List<Map<String, Object>> users = userService.users();
         Map<String, Object> latestDisaster = userService.getLatestDisaster();
         Object di_id = latestDisaster.get("di_id");
+        System.out.println(di_id);
 
         for(int i = 0; i < users.size(); i++) {
             SafetyFormData safetyFormData = new SafetyFormData();

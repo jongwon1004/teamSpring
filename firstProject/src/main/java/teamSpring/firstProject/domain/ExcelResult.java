@@ -18,4 +18,5 @@ public class ExcelResult {
         private String injury;
         private String work;
         private String otherInfo;
+        private String cellphone;
 }

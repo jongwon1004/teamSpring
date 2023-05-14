@@ -172,7 +172,8 @@
             <div class="box-header"><p>詳細情報</p></div>
             <div class="imformation-box">
                 <div class="name-box">
-                    <p th:text="${userSafetyDetail.get(0).get('e_name')}">藤田昇</p></div>
+                    <p th:text="${userSafetyDetail.get(0).get('e_name')}">藤田昇</p>
+                </div>
                 <div class="detail-imformaition">
                     <div class="position">
                         <p class="title"> 部署</p>
@@ -215,10 +216,13 @@
                         <p class="title">登録日</p>
                         <p th:text="${#temporals.format(userSafetyDetail.get(0).get('date_of_report'), 'yyyy/MM/dd HH:mm:ss')}" style="font-size: 19px">2023/05/08 16:23:45</p>
                     </div>
-                    <div style="display: flex;justify-content: flex-end">
-                        <button class="back-Button" onclick="history.back()" style="margin-right: 120px">戻る</button>
+                    <div class="cellphone">
+                        <p class="title">電話番号</p>
+                        <p th:text="${userSafetyDetail.get(0).get('Cellphone')}" style="font-size: 19px">電話番号表示</p>
                     </div>
-
+                    <div style="display: flex;justify-content: flex-end; width: 1200px">
+                        <button class="back-Button" onclick="history.back()" style="margin-right: 120px; cursor: pointer">戻る</button>
+                    </div>
                 </div>
             </div>
         </div>

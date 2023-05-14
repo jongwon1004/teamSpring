@@ -199,7 +199,7 @@ main {
 }
 main > .inner {
     width: 1200px;
-    height: 800px;
+    height: 950px;
 }
 main > .inner > .box {
     display: flex;
@@ -228,7 +228,7 @@ main > .inner > .box > .box-header > p {
 main > .inner > .box > .imformation-box {
     margin-top: 30px;
     width: 1200px;
-    height: 600px;
+    height: 685px;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -266,7 +266,6 @@ main
     margin-left: 100px;
 }
 main > .inner > .box > .imformation-box > .detail-imformaition > div {
-    width: 600px;
     height: 117px;
 }
 main > .inner > .box > .imformation-box > .detail-imformaition > div > p {

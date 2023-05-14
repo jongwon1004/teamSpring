@@ -250,7 +250,7 @@
 
     <!-- 安否表で該当するユーザーの詳細情報 -->
     <select id="userSafetyDetail" parameterType="int" resultType="Map">
-        SELECT s.e_id, e.e_name, s.injury_flag, s.safety, s.work_flag, s.other_information,
+        SELECT s.e_id, e.e_name, s.injury_flag, e.Cellphone, s.safety, s.work_flag, s.other_information,
                s.date_of_report,d.d_name
         FROM safety_report AS s
         JOIN employee AS e on s.e_id = e.e_id
@@ -273,7 +273,7 @@
 -->
 
     <select id="excel" resultMap="excelResult">
-        SELECT d.d_name, e.e_name, s.safety, s.injury_flag, s.work_flag, s.other_information,
+        SELECT d.d_name, e.e_name, e.Cellphone, s.safety, s.injury_flag, s.work_flag, s.other_information,
                s.date_of_report, e.e_id, s.di_id
         FROM employee AS e
                  JOIN department AS d ON ( e.d_id = d.d_id )
@@ -302,6 +302,7 @@
         <result column="injury_flag" property="injury"/>
         <result column="work_flag" property="work"/>
         <result column="other_information" property="otherInfo"/>
+        <result column="Cellphone" property="cellphone"/>
     </resultMap>
 
     <delete id="allSafetyTableDataDelete">

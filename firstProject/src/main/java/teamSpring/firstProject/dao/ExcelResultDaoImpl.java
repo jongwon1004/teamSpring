@@ -33,6 +33,7 @@ public class ExcelResultDaoImpl {
         departmentHeader.createCell(6).setCellValue("injury");
         departmentHeader.createCell(7).setCellValue("work");
         departmentHeader.createCell(8).setCellValue("otherInfo");
+        departmentHeader.createCell(9).setCellValue("cellphone");
         int ExcelResultRowCount = 1;
         for (ExcelResult excelResult : excelResultList) {
             Row row = departmentSheet.createRow(ExcelResultRowCount++);
@@ -45,6 +46,7 @@ public class ExcelResultDaoImpl {
             row.createCell(6).setCellValue(excelResult.getInjury());
             row.createCell(7).setCellValue(excelResult.getWork());
             row.createCell(8).setCellValue(excelResult.getOtherInfo());
+            row.createCell(9).setCellValue(excelResult.getCellphone());
         }
 
         for (int columnIndex = 0; columnIndex < departmentHeader.getLastCellNum(); columnIndex++) {

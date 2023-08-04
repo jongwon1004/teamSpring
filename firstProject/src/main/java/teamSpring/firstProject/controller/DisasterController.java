@@ -23,7 +23,6 @@ public class DisasterController {
         this.userService = userService;
     }
 
-
     @RequestMapping(value = "/disasterRegister", method = RequestMethod.GET)
     public String disasterRegister() {
         return "/registerForm";

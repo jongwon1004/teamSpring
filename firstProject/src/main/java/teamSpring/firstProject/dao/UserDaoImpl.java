@@ -4,15 +4,12 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.SqlSession;
 
 import org.springframework.stereotype.Repository;
-import teamSpring.firstProject.domain.ExcelResult;
-import teamSpring.firstProject.domain.Safety;
-import teamSpring.firstProject.domain.SafetyFormData;
-import teamSpring.firstProject.domain.User;
+import teamSpring.firstProject.domain.*;
 
 import java.util.*;
 
 @Mapper
-@Repository
+//@Repository
 public class UserDaoImpl implements UserDao {
 
     private final SqlSession sqlSession;
@@ -124,5 +121,10 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void allSafetyTableDataDelete() {
         sqlSession.delete(namespace + "allSafetyTableDataDelete");
+    }
+
+    @Override
+    public PrivateUser privateSelectUser(Integer employeeId) {
+        return sqlSession.selectOne( namespace + "privateSelectUser", employeeId);
     }
 }

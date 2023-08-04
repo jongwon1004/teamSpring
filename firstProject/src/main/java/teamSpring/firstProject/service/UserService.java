@@ -2,10 +2,7 @@ package teamSpring.firstProject.service;
 
 import org.springframework.stereotype.Service;
 import teamSpring.firstProject.dao.UserDao;
-import teamSpring.firstProject.domain.ExcelResult;
-import teamSpring.firstProject.domain.Safety;
-import teamSpring.firstProject.domain.SafetyFormData;
-import teamSpring.firstProject.domain.User;
+import teamSpring.firstProject.domain.*;
 
 import java.util.List;
 import java.util.Map;
@@ -101,6 +98,10 @@ public class UserService {
 
     public void allSafetyTableDataDelete() {
         userDao.allSafetyTableDataDelete();
+    }
+
+    public PrivateUser privateSelectUser(Integer employeeId) {
+        return userDao.privateSelectUser(employeeId);
     }
 
 //    public void resetSafetyTable() {

@@ -26,6 +26,17 @@
         <result column="e_name" property="name"/>
     </resultMap>
 
+    <select id="privateSelectUser" parameterType="int" resultMap="PrivateUserResultMap">
+        SELECT e_id, password FROM employee
+        WHERE e_id = #{employeeId}
+    </select>
+
+    <resultMap id="PrivateUserResultMap" type="teamSpring.firstProject.domain.PrivateUser">
+        <result column="e_id" property="id"/>
+        <result column="password" property="pass"/>
+    </resultMap>
+
+
     <!-- メイン画面の　〜さん、ようこそのところに名前を表示させるため -->
     <select id="sessionGetEmpName" parameterType="int" resultType="String">
         SELECT e_name FROM employee
@@ -287,6 +298,7 @@
             FROM safety_report
             WHERE e_id = s.e_id
         ))
+
 
 
         ORDER BY date_of_report DESC

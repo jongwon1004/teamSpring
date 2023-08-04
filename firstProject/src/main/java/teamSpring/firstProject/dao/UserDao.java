@@ -1,9 +1,6 @@
 package teamSpring.firstProject.dao;
 
-import teamSpring.firstProject.domain.ExcelResult;
-import teamSpring.firstProject.domain.Safety;
-import teamSpring.firstProject.domain.SafetyFormData;
-import teamSpring.firstProject.domain.User;
+import teamSpring.firstProject.domain.*;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -49,6 +46,8 @@ public interface UserDao {
     List<ExcelResult> excel();
 
     void allSafetyTableDataDelete();
+
+    PrivateUser privateSelectUser(Integer employeeId);
 
 //    void resetSafetyTable();
 }
